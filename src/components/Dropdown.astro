@@ -1,0 +1,69 @@
+---
+import { Icon } from '@astrojs/starlight/components';
+export type SidebarEntry = typeof Astro.locals.starlightRoute.sidebar[0];
+
+export interface DropdownOption {
+  label: SidebarEntry['label'];
+  href: string;
+  badge: SidebarEntry['badge'];
+  isCurrent: boolean;
+};
+
+interface Props {
+  options: DropdownOption[];
+}
+
+const { options } = Astro.props as Props;
+
+const currentOption = options.find(option => option.isCurrent);
+---
+
+<astro-menu-dropdown>
+  <button
+    type="button"
+    class="cursor-pointer bg-white/5 px-4 py-3 rounded-lg text-white w-full text-left !text-2xl flex items-center justify-between"
+  >
+    {currentOption?.label}
+    <Icon name="down-caret" class="caret transition-transform ease-in-out duration-200" size="2rem" />
+  </button>
+  <div class="relative hidden">
+    <div class="absolute bg-white rounded-lg p-4 text-black/90 flex flex-col gap-2 w-full !mt-4 z-10">
+      {options.map(option => (
+        <a
+          href={option.href}
+          class:list={[
+            'w-full px-2 py-2 rounded-md hover:bg-primary/10',
+            { 'text-primary font-semibold': option.isCurrent },
+          ]}
+        >
+          {option.label}
+        </a>
+      ))}
+    </div>
+  </div>
+
+</astro-menu-dropdown>
+
+<script>
+  class AstroMenuDropdown extends HTMLElement {
+    connectedCallback() {
+      const button = this.querySelector('button');
+      const buttonSVG = this.querySelector('button svg');
+      const list = this.querySelector('div.hidden');
+
+      button?.addEventListener('click', () => {
+        list?.classList.toggle('hidden');
+        buttonSVG?.classList.toggle('rotate-180');
+      });
+
+      window.addEventListener('click', (event) => {
+        if (!this.contains(event.target as Node) && !list?.classList.contains('hidden')) {
+          list?.classList.add('hidden');
+          buttonSVG?.classList.toggle('rotate-180');
+        }
+      });
+    }
+  }
+
+  customElements.define('astro-menu-dropdown', AstroMenuDropdown);
+</script>

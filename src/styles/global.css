@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* https://tailwindcss.com/docs/dark-mode#using-a-data-attribute */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-primary: #F41F95;
+}
+
+:root {
+  --sl-font: "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Colors */
+  --sl-color-bg-sidebar: #0C0505;
+  --sl-color-bg-nav: #0C0505;
+  --sl-color-bg: #0C0505;
+  --sl-color-bg-inline-code: rgba(255, 255, 255, 0.05);
+	--sl-color-bg-accent: rgba(255, 255, 255, 0.05);
+
+  --sl-color-text-accent: var(--color-primary);
+
+  /* Header */
+  --sl-nav-height: 3.5rem;
+}
+
+@media (min-width: 50em) {
+  :root {
+    --sl-nav-height: 6.25rem;
+  }
+}
+
+/* Sidebar */
+div.sidebar-content {
+  @apply gap-6;
+}
+
+div.sidebar-pane ul.top-level {
+  @apply bg-white/5 px-4 py-6;
+}
+
+div.sidebar-pane summary:has(+ ul > li > a[aria-current='page']) {
+  @apply bg-primary/10;
+}
+
+div.sidebar-pane ul.top-level > li > a {
+  @apply text-white px-3 py-2;
+}
+
+div.sidebar-pane ul.top-level li > a[aria-current='page'] {
+  @apply text-primary;
+}
+
+/* Right sidebar */
+.right-sidebar-panel :where(a):hover {
+  @apply text-primary;
+}
+
+/* Markdown */
+.sl-markdown-content a:not(:where(.not-content *)) {
+  @apply text-white;
+}
+
+/* Search */
+.search-box {
+  @apply justify-center;
+  padding-right: var(--sl-nav-gap);
+}
+
+.search-box button {
+  @apply rounded-full bg-white/2 text-white/50;
+  max-width: 500px;
+}
+
+/* Social icons */
+.social-icons {
+  @apply text-white;
+  --sl-color-text-accent: white;
+}
+
+.social-icons a svg {
+  --sl-icon-size: 1.25rem !important;
+}
+
+.social-icons a:hover {
+  @apply text-primary opacity-100;
+}
+
+/* Content Size */
+@media (min-width: 98.75em) {
+  :root {
+    /* Content */
+    --sl-content-width: 75rem;
+  }
+}
+
+@media (min-width: 85em) and (max-width: 98.74em) {
+  :root {
+    /* Content */
+    --sl-content-width: 60rem;
+  }
+}
+
+@media (min-width: 75em) and (max-width: 85em) {
+  :root {
+    /* Content */
+    --sl-content-width: 50rem;
+  }
+}

@@ -1,0 +1,25 @@
+diff --git a/package.json b/package.json
+index c40ed62c82415a17941d45300fa36d63135c0538..6dc97bff3aee9983d1aa15984a1a06b9d28cfa10 100644
+--- a/package.json
++++ b/package.json
+@@ -55,6 +55,10 @@
+       "types": "./components/SidebarSublist.astro.tsx",
+       "import": "./components/SidebarSublist.astro"
+     },
++    "./components/SidebarRestorePoint.astro": {
++      "types": "./components/SidebarRestorePoint.astro.tsx",
++      "import": "./components/SidebarRestorePoint.astro"
++    },
+     "./components/ContentPanel.astro": {
+       "types": "./components/ContentPanel.astro.tsx",
+       "import": "./components/ContentPanel.astro"
+@@ -170,7 +174,8 @@
+       "default": "./integrations/expressive-code/hast.mjs"
+     },
+     "./routes/*": "./routes/*",
+-    "./style/markdown.css": "./style/markdown.css"
++    "./style/markdown.css": "./style/markdown.css",
++    "./utils/navigation": "./utils/navigation.ts"
+   },
+   "peerDependencies": {
+     "astro": "^5.1.5"

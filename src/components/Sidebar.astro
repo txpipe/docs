@@ -1,0 +1,51 @@
+---
+import MobileMenuFooter from '@astrojs/starlight/components/MobileMenuFooter.astro';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from './SidebarSublist.astro';
+
+import Dropdown, { type DropdownOption, type SidebarEntry } from './Dropdown.astro';
+
+const { sidebar, entry } = Astro.locals.starlightRoute;
+
+const sidebarOptions: DropdownOption[] = [];
+
+let currentSidebar: SidebarEntry[] = [];
+
+function firstLinkEntry(_entry?: SidebarEntry): string {
+  if (!_entry) {
+    return '';
+  }
+
+  if (_entry.type === 'group') {
+    return firstLinkEntry(_entry.entries[0]);
+  }
+
+  return _entry.href;
+}
+
+sidebar.forEach(item => {
+  if (item.type === 'group') {
+    const isCurrent = entry.id.startsWith(item.label.toLowerCase());
+    sidebarOptions.push({
+      label: item.label,
+      href: firstLinkEntry(item.entries[0]) || `/${item.label.toLowerCase()}`,
+      badge: item.badge,
+      isCurrent,
+    });
+
+    if (isCurrent) {
+      currentSidebar = item.entries;
+    }
+  }
+});
+---
+
+<Dropdown options={sidebarOptions} />
+
+<SidebarPersister>
+  <SidebarSublist sublist={currentSidebar} />
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+  <MobileMenuFooter />
+</div>
