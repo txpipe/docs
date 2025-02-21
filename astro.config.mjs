@@ -23,11 +23,11 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Telchar',
-          autogenerate: { directory: '/telchar/' },
+          autogenerate: { directory: '/telchar/', collapsed: true },
         },
         {
           label: 'Boros',
-          autogenerate: { directory: '/boros/' },
+          autogenerate: { directory: '/boros/', collapsed: true },
         },
       ],
       components: {
