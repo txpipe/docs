@@ -1,0 +1,4 @@
+[submodule "submodules/boros"]
+	path = submodules/boros
+	url = https://github.com/txpipe/boros
+	branch = main

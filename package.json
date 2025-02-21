@@ -9,6 +9,8 @@
     "lint:fix": "eslint . --fix",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "preview": "astro preview",
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "git submodule update --recursive --remote",
     "start": "astro dev"
   },
   "dependencies": {
