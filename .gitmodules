@@ -1,4 +1,5 @@
 [submodule "submodules/boros"]
 	path = submodules/boros
 	url = https://github.com/txpipe/boros
-	branch = main
+	# Change to main after docs are merged
+	branch = feat/global-docs
