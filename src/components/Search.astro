@@ -29,11 +29,9 @@ function simplifyNodes(node: SidebarEntry): any {
   };
 }
 
-const simpleSidebar = sidebar.map(simplifyNodes);
-
 const dataAttributes: DOMStringMap = {
   'data-translations': JSON.stringify(pagefindTranslations),
-  'data-sidebar': JSON.stringify(simpleSidebar),
+  'data-sidebar': JSON.stringify(sidebar.map(simplifyNodes)),
 };
 if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash'] = '';
 ---
@@ -114,15 +112,21 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
       openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
     }
     shortcut.style.display = '';
-
-    if (!window.pagefind) {
-      window.pagefind = await import ('/pagefind/pagefind.js').catch(() => null);
-      if (window.pagefind) {
-        window.pagefind.init()
-      }
-    }
   })();
 </script>
+
+{!import.meta.env.DEV && (
+  <script is:inline>
+    (async () => {
+      if (!window.pagefind) {
+        window.pagefind = await import ('/pagefind/pagefind.js').catch(() => null);
+        if (window.pagefind) {
+          window.pagefind.init()
+        }
+      }
+    })()
+  </script>
+)}
 
 <script>
   const chevronIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-opacity=".9" stroke-width="1.5" d="m6.713 3.06 4.89 4.89a1.49 1.49 0 0 1 0 2.1l-4.89 4.89"/></svg>`;
@@ -175,7 +179,7 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
         }
       });
 
-      clearSearch.addEventListener('click', () => {
+      clearSearch?.addEventListener('click', () => {
         searchInput.value = '';
         clearSearch.classList.add('hidden');
       });
