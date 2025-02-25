@@ -34,6 +34,7 @@ export default defineConfig({
         Sidebar: './src/components/Sidebar.astro',
         Header: './src/components/Header.astro',
         SiteTitle: './src/components/SiteTitle.astro',
+        Search: './src/components/Search.astro',
       },
       expressiveCode: {
         themes: ['starlight-dark'],

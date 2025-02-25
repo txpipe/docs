@@ -110,3 +110,20 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
     --sl-content-width: 50rem;
   }
 }
+
+/* Page search */
+.result-item {
+  @apply block px-4 py-1.5 cursor-pointer rounded-xl;
+  @apply hover:bg-primary/10;
+}
+.result-item-breadcrumb {
+  @apply flex gap-2 items-center font-semibold;
+}
+
+.result-item-content {
+  @apply text-black/50 text-sm whitespace-nowrap overflow-ellipsis overflow-hidden;
+}
+
+.result-item-content mark {
+  @apply bg-transparent text-primary;
+}

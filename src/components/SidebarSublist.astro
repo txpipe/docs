@@ -22,6 +22,7 @@ const { sublist, nested } = Astro.props;
             <a
               href={entry.href}
               aria-current={entry.isCurrent && 'page'}
+              aria-label={entry.label}
               class:list={['hover:text-primary py-1 block', entry.attrs.class]}
               {...entry.attrs}
             >

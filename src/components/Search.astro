@@ -1,0 +1,382 @@
+---
+import project from 'virtual:starlight/project-context';
+import { Icon } from '@astrojs/starlight/components';
+import type { SidebarEntry } from './Dropdown.astro';
+
+const pagefindTranslations = {
+  placeholder: Astro.locals.t('search.label'),
+  ...Object.fromEntries(
+    Object.entries(Astro.locals.t.all())
+      .filter(([key]) => key.startsWith('pagefind.'))
+      .map(([key, value]) => [key.replace('pagefind.', ''), value]),
+  ),
+};
+
+// Extract sidebar and entry from Astro.locals.starlightRoute
+const { sidebar } = Astro.locals.starlightRoute;
+
+function simplifyNodes(node: SidebarEntry): any {
+  if (node.type === 'group') {
+    return {
+      label: node.label,
+      entries: node.entries.map(simplifyNodes),
+    };
+  }
+
+  return {
+    label: node.label,
+    href: node.href,
+  };
+}
+
+const simpleSidebar = sidebar.map(simplifyNodes);
+
+const dataAttributes: DOMStringMap = {
+  'data-translations': JSON.stringify(pagefindTranslations),
+  'data-sidebar': JSON.stringify(simpleSidebar),
+};
+if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash'] = '';
+---
+
+<site-search class={Astro.props.class} {...dataAttributes}>
+  <button data-open-modal disabled aria-label={Astro.locals.t('search.label')} aria-keyshortcuts="Control+K">
+    <Icon name="magnifier" />
+    <span class="sl-hidden md:sl-block" aria-hidden="true">{Astro.locals.t('search.label')}</span>
+    <kbd class="sl-hidden md:sl-flex" style="display: none;">
+      <kbd>{Astro.locals.t('search.ctrlKey')}</kbd><kbd>K</kbd>
+    </kbd>
+  </button>
+
+  <dialog
+    aria-label={Astro.locals.t('search.label')}
+  >
+    <div class="dialog-frame sl-flex">
+      {
+        /* TODO: Make the layout of this button flexible to accommodate different word lengths. Currently hard-coded for English: "Cancel" */
+      }
+      <button data-close-modal class="sl-flex md:sl-hidden">
+        {Astro.locals.t('search.cancelLabel')}
+      </button>
+      <div class="rounded-full border border-white/[0.24] p-2.5">
+        {
+          import.meta.env.DEV
+            ? (
+              <div style="margin: auto; text-align: center; white-space: pre-line;" dir="ltr">
+                <p>{Astro.locals.t('search.devWarning')}</p>
+              </div>
+            )
+            : (
+              <div class="search-container w-full">
+                <search class="relative flex items-center text-white/80">
+                  <Icon name="magnifier" class="absolute left-4" size="1.25rem" />
+                  <input
+                    data-search-input
+                    type="text"
+                    placeholder={Astro.locals.t('search.label')}
+                    disabled
+                    class="w-full bg-white/[0.02] border border-white/70 rounded-full px-10 py-2.5"
+                  />
+                  <button
+                    data-reset-search
+                    type="button"
+                    class="absolute right-0 top-0 bottom-0 aspect-[0.75] bg-transparent! justify-center items-center hidden cursor-pointer"
+                  >
+                    <Icon name="close" size="1.25rem" />
+                  </button>
+                </search>
+              </div>
+            )
+        }
+      </div>
+      <div data-search-results class="w-full rounded-xl bg-white py-6 px-8 mt-2! hidden">
+        <h2 class="text-black/50">Top results</h2>
+        <div data-results class="max-h-[400px] overflow-y-auto w-full text-black/90 mt-4!" />
+      </div>
+    </div>
+  </dialog>
+</site-search>
+
+{
+  /**
+   * This is intentionally inlined to avoid briefly showing an invalid shortcut.
+   * Purposely using the deprecated `navigator.platform` property to detect Apple devices, as the
+   * user agent is spoofed by some browsers when opening the devtools.
+   */
+}
+<script is:inline>
+  (async () => {
+    const openBtn = document.querySelector('button[data-open-modal]');
+    const shortcut = openBtn?.querySelector('kbd');
+    if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+    const platformKey = shortcut.querySelector('kbd');
+    if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+      platformKey.textContent = '⌘';
+      openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+    }
+    shortcut.style.display = '';
+
+    if (!window.pagefind) {
+      window.pagefind = await import ('/pagefind/pagefind.js').catch(() => null);
+      if (window.pagefind) {
+        window.pagefind.init()
+      }
+    }
+  })();
+</script>
+
+<script>
+  const chevronIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-opacity=".9" stroke-width="1.5" d="m6.713 3.06 4.89 4.89a1.49 1.49 0 0 1 0 2.1l-4.89 4.89"/></svg>`;
+  class SiteSearch extends HTMLElement {
+    resultsArea: HTMLDivElement;
+    constructor() {
+      super();
+      const self = this;
+      const openBtn = this.querySelector<HTMLButtonElement>('button[data-open-modal]')!;
+      const closeBtn = this.querySelector<HTMLButtonElement>('button[data-close-modal]')!;
+      const clearSearch = this.querySelector<HTMLButtonElement>('button[data-reset-search]')!;
+      const searchInput = this.querySelector<HTMLInputElement>('input[data-search-input]')!;
+      const dialog = this.querySelector('dialog')!;
+      const dialogFrame = this.querySelector('.dialog-frame')!;
+
+      this.resultsArea = this.querySelector<HTMLDivElement>('div[data-search-results]')!;
+
+      /** Close the modal if a user clicks on a link or outside of the modal. */
+      const onClick = (event: MouseEvent) => {
+        const isLink = 'href' in (event.target || {});
+        if (isLink || (document.body.contains(event.target as Node) && !dialogFrame.contains(event.target as Node))) {
+          closeModal();
+        }
+      };
+
+      const openModal = (event?: MouseEvent) => {
+        dialog.showModal();
+        document.body.toggleAttribute('data-search-modal-open', true);
+        this.querySelector('input')?.focus();
+        event?.stopPropagation();
+        window.addEventListener('click', onClick);
+      };
+
+      const closeModal = () => dialog.close();
+
+      openBtn.addEventListener('click', openModal);
+      openBtn.disabled = false;
+      closeBtn.addEventListener('click', closeModal);
+
+      dialog.addEventListener('close', () => {
+        document.body.toggleAttribute('data-search-modal-open', false);
+        window.removeEventListener('click', onClick);
+      });
+
+      // Listen for `ctrl + k` and `cmd + k` keyboard shortcuts.
+      window.addEventListener('keydown', (e) => {
+        if ((e.metaKey === true || e.ctrlKey === true) && e.key === 'k') {
+          dialog.open ? closeModal() : openModal();
+          e.preventDefault();
+        }
+      });
+
+      clearSearch.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearch.classList.add('hidden');
+      });
+
+      let translations = {};
+      let sidebar: any[] = [];
+      try {
+        translations = JSON.parse(this.dataset.translations || '{}');
+        sidebar = JSON.parse(this.dataset.sidebar || '[]');
+      } catch {}
+
+      const shouldStrip = this.dataset.stripTrailingSlash !== undefined;
+      const stripTrailingSlash = (path: string) => path.replace(/(.)\/(#.*)?$/, '$1$2');
+      const formatURL = shouldStrip ? stripTrailingSlash : (path: string) => path;
+
+      let debounceTimeout: NodeJS.Timeout | null = null;
+
+      const getBreadcrumb = (path: string, entry: any): string => {
+        if (path === entry.href) {
+          return entry.label;
+        }
+
+        if (entry.entries) {
+          for (const child of entry.entries) {
+            const breadcrumb = getBreadcrumb(path, child);
+            if (breadcrumb) return `${entry.label}${chevronIcon}${breadcrumb}`;
+          }
+        }
+
+        return '';
+      }
+
+      function debounceInput(input: HTMLInputElement) {
+        if (debounceTimeout) {
+          clearTimeout(debounceTimeout);
+        }
+        debounceTimeout = setTimeout(async () => {
+          if (!input.value || input.value.trim().length === 0) {
+            self.renderResults([]);
+            return;
+          }
+          try {
+            const { results } = await window.pagefind?.search(input.value).catch(() => { results: [] });
+            const dataResults: any[] = [];
+            for (const result of results) {
+              const data = await result.data().catch(() => null);
+              data.url = formatURL(data.url);
+              let breadcrumb = '';
+              for(let i = 0; !breadcrumb && i < sidebar.length; i++) {
+                breadcrumb = getBreadcrumb(data.url, sidebar[i]);
+              }
+              data.meta.breadcrumb = breadcrumb;
+
+              dataResults.push(data);
+            }
+
+            self.renderResults(dataResults);
+          } catch (e) { console.log(e); }
+        }, 500);
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        if (import.meta.env.DEV) return;
+        const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+        onIdle(async () => {
+          if (window.pagefind) {
+            searchInput.disabled = false;
+
+            searchInput.addEventListener('input', (event) => {
+              if (searchInput.value.length > 0) {
+                clearSearch.classList.remove('hidden');
+              } else {
+                clearSearch.classList.add('hidden');
+              }
+              debounceInput(event.target as HTMLInputElement);
+            });
+          }
+        });
+      });
+    }
+
+    renderResults(results: any[]) {
+      const container = this.resultsArea.querySelector<HTMLDivElement>('[data-results]')!;
+      container.innerHTML = '';
+
+      if (results.length === 0) {
+        this.resultsArea.classList.add('hidden');
+        return;
+      }
+
+      this.resultsArea.classList.remove('hidden');
+      if (container) {
+        container.innerHTML = '';
+        for (const result of results) {
+          const item = document.createElement('a');
+          item.classList.add('result-item');
+          item.href = result.url;
+          const content = document.createElement('div');
+          content.classList.add('result-item-content');
+          content.innerHTML = result.excerpt;
+          const breadcrumb = document.createElement('div');
+          breadcrumb.classList.add('result-item-breadcrumb');
+          breadcrumb.innerHTML = result.meta.breadcrumb;
+          item.appendChild(breadcrumb);
+          item.appendChild(content);
+          container.appendChild(item);
+        }
+      }
+    }
+  }
+  customElements.define('site-search', SiteSearch);
+</script>
+
+<style>
+  site-search {
+    display: contents;
+  }
+
+  button[data-open-modal] {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 0;
+    background-color: transparent;
+    color: var(--sl-color-gray-1);
+    cursor: pointer;
+    height: 2.5rem;
+    font-size: var(--sl-text-xl);
+  }
+
+  button > kbd {
+    border-radius: 0.25rem;
+    font-size: var(--sl-text-2xs);
+    gap: 0.25em;
+    padding-inline: 0.375rem;
+    background-color: var(--sl-color-gray-6);
+  }
+
+  kbd {
+    font-family: var(--__sl-font);
+  }
+
+  dialog {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+  }
+
+  dialog::backdrop {
+    background-color: var(--sl-color-backdrop-overlay);
+    -webkit-backdrop-filter: blur(0.25rem);
+    backdrop-filter: blur(0.25rem);
+  }
+
+  .dialog-frame {
+    position: relative;
+    overflow: auto;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  button[data-close-modal] {
+    z-index: 1;
+    align-items: center;
+    align-self: flex-end;
+    height: calc(64px * var(--pagefind-ui-scale));
+    padding: 0.25rem;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    color: var(--sl-color-text-accent);
+  }
+
+  @media (min-width: 50rem) {
+    button[data-open-modal] {
+      border: 1px solid var(--sl-color-gray-5);
+      border-radius: 0.5rem;
+      padding-inline-start: 0.75rem;
+      padding-inline-end: 0.5rem;
+      background-color: var(--sl-color-black);
+      color: var(--sl-color-gray-2);
+      font-size: var(--sl-text-sm);
+      width: 100%;
+      max-width: 22rem;
+    }
+    button[data-open-modal]:hover {
+      border-color: var(--sl-color-gray-2);
+      color: var(--sl-color-white);
+    }
+
+    button[data-open-modal] > :last-child {
+      margin-inline-start: auto;
+    }
+
+    dialog {
+      margin: 4rem auto auto;
+      width: 90%;
+      max-width: 40rem;
+      height: max-content;
+    }
+  }
+</style>
