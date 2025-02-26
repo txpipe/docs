@@ -71,7 +71,6 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
                     data-search-input
                     type="text"
                     placeholder={Astro.locals.t('search.label')}
-                    disabled
                     class="w-full bg-white/[0.02] border border-white/70 rounded-full px-10 py-2.5"
                   />
                   <button
@@ -121,7 +120,7 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
       if (!window.pagefind) {
         window.pagefind = await import ('/pagefind/pagefind.js').catch(() => null);
         if (window.pagefind) {
-          window.pagefind.init()
+          window.pagefind.init();
         }
       }
     })()
@@ -245,18 +244,14 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
         if (import.meta.env.DEV) return;
         const onIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
         onIdle(async () => {
-          if (window.pagefind) {
-            searchInput.disabled = false;
-
-            searchInput.addEventListener('input', (event) => {
-              if (searchInput.value.length > 0) {
-                clearSearch.classList.remove('hidden');
-              } else {
-                clearSearch.classList.add('hidden');
-              }
-              debounceInput(event.target as HTMLInputElement);
-            });
-          }
+          searchInput.addEventListener('input', (event) => {
+            if (searchInput.value.length > 0) {
+              clearSearch.classList.remove('hidden');
+            } else {
+              clearSearch.classList.add('hidden');
+            }
+            debounceInput(event.target as HTMLInputElement);
+          });
         });
       });
     }
