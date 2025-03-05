@@ -3,3 +3,8 @@
 	url = https://github.com/txpipe/boros
 	# Change to main after docs are merged
 	branch = feat/global-docs
+[submodule "submodules/dolos"]
+	path = submodules/dolos
+	url = https://github.com/txpipe/dolos
+	# Change to main after docs are merged
+	branch = feat/global-docs

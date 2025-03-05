@@ -6,6 +6,8 @@ import rehypeMermaid from 'rehype-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://docs.txpipe.io',
+  trailingSlash: 'never',
   integrations: [
     starlight({
       customCss: [
@@ -18,16 +20,16 @@ export default defineConfig({
         src: './src/assets/txpipe-logo.webp',
       },
       social: {
-        github: 'https://github.com/withastro/starlight',
+        github: 'https://github.com/txpipe/docs',
       },
       sidebar: [
         {
-          label: 'Telchar',
-          autogenerate: { directory: '/telchar/', collapsed: true },
-        },
-        {
           label: 'Boros',
           autogenerate: { directory: '/boros/', collapsed: true },
+        },
+        {
+          label: 'Dolos',
+          autogenerate: { directory: '/dolos/', collapsed: true },
         },
       ],
       components: {
