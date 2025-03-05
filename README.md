@@ -55,11 +55,26 @@ Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro 
 
 ## Submodules
 After cloning this repository, you need to initialize the submodules by running the following command:
-```
+```sh
 git submodule update --init --recursive
 ```
 
 To update the submodules to the latest commit, run the following command:
-```
+```sh
 git submodule update --recursive --remote
+```
+
+## Add new docs
+
+First of all, you need to add as submodule the docs repository.
+To add a new submodule, run the following command:
+```sh
+git submodule add <submodule_url> <submodule_path>
+```
+
+Then, you need to add the docs to the `src/content/docs` directory.
+
+```sh
+cd src/content/docs
+ln -s ../../../submodules/<submodule>/docs/<path_to_docs> <path_docs>
 ```
