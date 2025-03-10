@@ -8,3 +8,7 @@
 	url = https://github.com/txpipe/dolos
 	# Change to main after docs are merged
 	branch = feat/global-docs
+[submodule "submodules/balius"]
+	path = submodules/balius
+	url = https://github.com/txpipe/balius
+	branch = feat/global-docs

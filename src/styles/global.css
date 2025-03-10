@@ -46,7 +46,7 @@ div.sidebar-pane summary:has(+ ul > li > a[aria-current='page']) {
   @apply bg-primary/10;
 }
 
-div.sidebar-pane ul.top-level > li > a {
+div.sidebar-pane ul > li > a {
   @apply text-white px-3 py-2;
 }
 
@@ -126,4 +126,13 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
 
 .result-item-content mark {
   @apply bg-transparent text-primary;
+}
+
+/** Footnotes */
+section[data-footnotes] {
+  
+}
+
+section[data-footnotes] ol {
+  @apply list-decimal ml-5;
 }

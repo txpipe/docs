@@ -24,6 +24,10 @@ export default defineConfig({
       },
       sidebar: [
         {
+          label: 'Balius',
+          autogenerate: { directory: '/balius/', collapsed: true },
+        },
+        {
           label: 'Boros',
           autogenerate: { directory: '/boros/', collapsed: true },
         },
