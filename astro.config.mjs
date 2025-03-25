@@ -12,6 +12,7 @@ export default defineConfig({
     starlight({
       customCss: [
         '@fontsource-variable/inter',
+        '@fontsource-variable/roboto-mono',
         './src/styles/global.css',
       ],
       title: 'TxPipe Docs',
@@ -37,12 +38,13 @@ export default defineConfig({
         },
       ],
       components: {
-        Sidebar: './src/components/Sidebar.astro',
-        Header: './src/components/Header.astro',
-        SiteTitle: './src/components/SiteTitle.astro',
-        Search: './src/components/Search.astro',
-        PageFrame: './src/components/PageFrame.astro',
-        ContentPanel: './src/components/ContentPanel.astro',
+        Sidebar: './src/components/overrides/Sidebar.astro',
+        Header: './src/components/overrides/Header.astro',
+        SiteTitle: './src/components/overrides/SiteTitle.astro',
+        Search: './src/components/overrides/Search.astro',
+        PageFrame: './src/components/overrides/PageFrame.astro',
+        ContentPanel: './src/components/overrides/ContentPanel.astro',
+        MobileMenuFooter: './src/components/overrides/MobileMenuFooter.astro',
       },
       expressiveCode: {
         themes: ['starlight-dark'],

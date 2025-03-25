@@ -10,7 +10,7 @@ const { hasSidebar } = Astro.locals.starlightRoute;
       <slot name="header" />
     </div>
   </header>
-  <main class="flex flex-row gap-2 justify-center">
+  <main class="flex flex-row gap-3">
     {
       hasSidebar && (
         <nav class="sidebar print:hidden" aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}>
@@ -23,7 +23,7 @@ const { hasSidebar } = Astro.locals.starlightRoute;
         </nav>
       )
     }
-    <div class="main-frame"><slot /></div>
+    <div class="main-frame w-full"><slot /></div>
   </main>
 </div>
 
@@ -103,9 +103,6 @@ const { hasSidebar } = Astro.locals.starlightRoute;
       width: var(--sl-sidebar-width);
       background-color: var(--sl-color-bg-sidebar);
       border-inline-end: 1px solid var(--sl-color-hairline-shade);
-    }
-    .main-frame {
-      padding-inline-start: 0.75rem;
     }
   }
 </style>

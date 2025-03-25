@@ -7,6 +7,8 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+  --font-roboto-mono: "Roboto Mono Variable", monospace;
+
   --color-primary: #F41F95;
 }
 
@@ -67,7 +69,6 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
 /* Search */
 .search-box {
   @apply justify-center;
-  padding-right: var(--sl-nav-gap);
 }
 
 .search-box button {
@@ -109,4 +110,9 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
 /** Footnotes */
 section[data-footnotes] ol {
   @apply list-decimal ml-5;
+}
+
+/** Main Panel */
+.main-frame .main-pane {
+  @apply pe-3;
 }
