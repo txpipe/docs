@@ -117,10 +117,10 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
   @apply pe-3;
 }
 
-.sl-markdown-content ol {
+.sl-markdown-content ol:not(.sl-steps) {
   @apply list-decimal ml-5;
 }
 
-.sl-markdown-content ul {
+.sl-markdown-content ul:not([role="tablist"]) {
   @apply list-disc ml-5;
 }
