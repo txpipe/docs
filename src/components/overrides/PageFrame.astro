@@ -10,7 +10,7 @@ const { hasSidebar } = Astro.locals.starlightRoute;
       <slot name="header" />
     </div>
   </header>
-  <main class="flex flex-row gap-3">
+  <main class="flex flex-row min-[50rem]:gap-3">
     {
       hasSidebar && (
         <nav class="sidebar print:hidden" aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}>

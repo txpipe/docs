@@ -11,6 +11,7 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
     head: [
       { tag: 'title', content: 'TxPipe Docs' },
     ],
+    pagefind: false,
   }}
 >
   <div class="w-full px-6 min-[1488px]:px-0">
@@ -50,3 +51,12 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
     </div>
   </div>
 </StarlightPage>
+
+<style is:inline>
+  main .content-panel:first-child {
+    display: none;
+  }
+  main .content-panel + .content-panel {
+    border: 0;
+  }
+</style>
