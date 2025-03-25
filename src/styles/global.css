@@ -111,12 +111,16 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
   @apply bg-transparent text-primary;
 }
 
-/** Footnotes */
-section[data-footnotes] ol {
-  @apply list-decimal ml-5;
-}
 
 /** Main Panel */
 .main-frame .main-pane {
   @apply pe-3;
+}
+
+.sl-markdown-content ol {
+  @apply list-decimal ml-5;
+}
+
+.sl-markdown-content ul {
+  @apply list-disc ml-5;
 }
