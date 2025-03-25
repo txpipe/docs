@@ -1,9 +1,10 @@
 ---
-import MobileMenuFooter from '@astrojs/starlight/components/MobileMenuFooter.astro';
 import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
-import SidebarSublist from './SidebarSublist.astro';
 
-import Dropdown, { type DropdownOption, type SidebarEntry } from './Dropdown.astro';
+import SidebarSublist from '@components/SidebarSublist.astro';
+import Dropdown, { type DropdownOption, type SidebarEntry } from '@components/Dropdown.astro';
+
+import MobileMenuFooter from './MobileMenuFooter.astro';
 
 const { sidebar, entry } = Astro.locals.starlightRoute;
 

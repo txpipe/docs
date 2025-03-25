@@ -1,0 +1,52 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+// import Chip from '@components/Chip.astro';
+---
+
+<StarlightPage
+  frontmatter={{
+    title: '',
+    template: 'splash',
+    head: [
+      { tag: 'title', content: 'TxPipe Docs' },
+    ],
+  }}
+>
+  <div class="w-full px-6 min-[1488px]:px-0">
+    <h1 class="text-2xl! font-semibold!">Welcome to TxPipe Docs</h1>
+    <!-- <p>Lorem ipsum dolor sit amet consectetur. Vulputate tincidunt quam nec at ullamcorper sem consectetur.</p> -->
+
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      <a href="/balius/introduction" class="bg-[#07B1FC]/5 border border-[#1A1919] py-4 px-6 rounded-md">
+        <h2>Balius</h2>
+        <p class="mt-3">
+          Learn more in Balius Docs.
+        </p>
+        <!-- <div class="flex flex-row gap-4 flex-wrap">
+          <Chip value="Balius" />
+        </div> -->
+      </a>
+
+      <a href="/boros" class="bg-[#07B1FC]/5 border border-[#1A1919] py-4 px-6 rounded-md">
+        <h2>Boros</h2>
+        <p class="mt-3">
+          Learn more in Boros docs.
+        </p>
+        <!-- <div class="flex flex-row gap-4 flex-wrap">
+          <Chip value="Boros" />
+        </div> -->
+      </a>
+
+      <a href="/dolos/quickstart" class="bg-[#07B1FC]/5 border border-[#1A1919] py-4 px-6 rounded-md">
+        <h2>Dolos</h2>
+        <p class="mt-3">
+          Learn more in Dolos docs.
+        </p>
+        <!-- <div class="flex flex-row gap-4 flex-wrap">
+          <Chip value="Dolos" />
+        </div> -->
+      </a>
+    </div>
+  </div>
+</StarlightPage>

@@ -1,0 +1,12 @@
+<div class="content-panel">
+  <div class="sl-container"><slot /></div>
+</div>
+
+<style>
+  .content-panel {
+    padding: var(--sl-content-pad-y) var(--sl-content-pad-x);
+  }
+  .content-panel + .content-panel {
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+</style>

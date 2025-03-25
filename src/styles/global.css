@@ -7,6 +7,8 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+  --font-roboto-mono: "Roboto Mono Variable", monospace;
+
   --color-primary: #F41F95;
 }
 
@@ -25,6 +27,10 @@
 
   /* Header */
   --sl-nav-height: 3.5rem;
+
+  /* Content Pane */
+  --sl-content-pad-x: 1rem;
+  --sl-content-pad-y: 1rem;
 }
 
 @media (min-width: 50em) {
@@ -67,7 +73,6 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
 /* Search */
 .search-box {
   @apply justify-center;
-  padding-right: var(--sl-nav-gap);
 }
 
 .search-box button {
@@ -89,28 +94,6 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
   @apply text-primary opacity-100;
 }
 
-/* Content Size */
-@media (min-width: 98.75em) {
-  :root {
-    /* Content */
-    --sl-content-width: 75rem;
-  }
-}
-
-@media (min-width: 85em) and (max-width: 98.74em) {
-  :root {
-    /* Content */
-    --sl-content-width: 60rem;
-  }
-}
-
-@media (min-width: 75em) and (max-width: 85em) {
-  :root {
-    /* Content */
-    --sl-content-width: 50rem;
-  }
-}
-
 /* Page search */
 .result-item {
   @apply block px-4 py-1.5 cursor-pointer rounded-xl;
@@ -128,11 +111,16 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
   @apply bg-transparent text-primary;
 }
 
-/** Footnotes */
-section[data-footnotes] {
-  
+
+/** Main Panel */
+.main-frame .main-pane {
+  @apply pe-3;
 }
 
-section[data-footnotes] ol {
+.sl-markdown-content ol:not(.sl-steps) {
   @apply list-decimal ml-5;
+}
+
+.sl-markdown-content ul:not([role="tablist"]) {
+  @apply list-disc ml-5;
 }
