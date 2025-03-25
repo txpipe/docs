@@ -89,28 +89,6 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
   @apply text-primary opacity-100;
 }
 
-/* Content Size */
-@media (min-width: 98.75em) {
-  :root {
-    /* Content */
-    --sl-content-width: 75rem;
-  }
-}
-
-@media (min-width: 85em) and (max-width: 98.74em) {
-  :root {
-    /* Content */
-    --sl-content-width: 60rem;
-  }
-}
-
-@media (min-width: 75em) and (max-width: 85em) {
-  :root {
-    /* Content */
-    --sl-content-width: 50rem;
-  }
-}
-
 /* Page search */
 .result-item {
   @apply block px-4 py-1.5 cursor-pointer rounded-xl;
@@ -129,10 +107,6 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
 }
 
 /** Footnotes */
-section[data-footnotes] {
-  
-}
-
 section[data-footnotes] ol {
   @apply list-decimal ml-5;
 }

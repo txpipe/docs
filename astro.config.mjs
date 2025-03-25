@@ -14,7 +14,7 @@ export default defineConfig({
         '@fontsource-variable/inter',
         './src/styles/global.css',
       ],
-      title: 'Docs',
+      title: 'TxPipe Docs',
       lastUpdated: true,
       logo: {
         src: './src/assets/txpipe-logo.webp',
@@ -41,6 +41,8 @@ export default defineConfig({
         Header: './src/components/Header.astro',
         SiteTitle: './src/components/SiteTitle.astro',
         Search: './src/components/Search.astro',
+        PageFrame: './src/components/PageFrame.astro',
+        ContentPanel: './src/components/ContentPanel.astro',
       },
       expressiveCode: {
         themes: ['starlight-dark'],
