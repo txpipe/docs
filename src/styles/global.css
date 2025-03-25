@@ -27,6 +27,10 @@
 
   /* Header */
   --sl-nav-height: 3.5rem;
+
+  /* Content Pane */
+  --sl-content-pad-x: 1rem;
+  --sl-content-pad-y: 1rem;
 }
 
 @media (min-width: 50em) {
