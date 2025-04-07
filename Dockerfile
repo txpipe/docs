@@ -28,5 +28,5 @@ COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 # Copy the built files from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port 3000
-EXPOSE 8080
+# Expose port 80
+EXPOSE 80
