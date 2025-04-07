@@ -1,0 +1,72 @@
+---
+import EditLink from '@astrojs/starlight/components/EditLink.astro';
+import LastUpdated from '@astrojs/starlight/components/LastUpdated.astro';
+import Pagination from '@astrojs/starlight/components/Pagination.astro';
+import { Icon } from '@astrojs/starlight/components';
+import config from 'virtual:starlight/user-config';
+
+const isLanding = Astro.url.pathname === '/';
+
+---
+
+<footer class:list={['sl-flex', isLanding && 'mt-14!']}>
+  {isLanding
+    ? (
+      <div class="text-xs text-white/50! py-6 border-t border-[#585858]">
+        <span>Copyright © 2025 TxPipe | All Rights Reserved | </span>
+        <a href="#" class="text-[#83D9FF]/60 underline underline-offset-1">Terms and Conditions</a>
+        <span> | </span>
+        <a href="#" class="text-[#83D9FF]/60 underline underline-offset-1">Privacy Policy</a>
+      </div>
+    )
+    : (
+      <>
+        <div class="meta sl-flex">
+          <EditLink />
+          <LastUpdated />
+        </div>
+        <Pagination />
+
+        {
+          config.credits && (
+            <a class="kudos sl-flex" href="https://starlight.astro.build">
+              <Icon name="starlight" /> {Astro.locals.t('builtWithStarlight.label')}
+            </a>
+          )
+        }
+      </>
+    )}
+</footer>
+
+<style>
+  footer {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .meta {
+    gap: 0.75rem 3rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+  .meta > :global(p:only-child) {
+    margin-inline-start: auto;
+  }
+
+  .kudos {
+    align-items: center;
+    gap: 0.5em;
+    margin: 1.5rem auto;
+    font-size: var(--sl-text-xs);
+    text-decoration: none;
+    color: var(--sl-color-gray-3);
+  }
+  .kudos :global(svg) {
+    color: var(--sl-color-orange);
+  }
+  .kudos:hover {
+    color: var(--sl-color-white);
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+import { format } from '@formkit/tempo';
+import TwitterLogo from '@assets/icons/twitter.svg';
+
+export type Props = {
+  title: string;
+  description: string;
+  author: string;
+  authorLink?: string;
+  date: Date;
+  link?: string;
+  social: 'x';
+};
+
+const { title, description, author, authorLink, date, link, social } = Astro.props as Props;
+
+---
+
+<div class="flex flex-col gap-3 px-4 py-5 border border-[#3E3E3E] rounded-md bg-gradient-to-b from-[#FFFFFF]/5 to-[#4B4B4B]/5">
+  <h3 class="text-base! font-semibold! text-white/80!">{title}</h3>
+  <p class="text-sm!  text-white/80!">{description}</p>
+  <div class="text-sm!">
+    <div>By
+      {authorLink
+        ? (
+          <a href={authorLink} class="text-white/80! hover:text-primary! transition-colors duration-300 ease-in-out">{author}</a>
+        )
+        : (
+          <span class="text-white/80!">{author}</span>
+        )}
+    </div>
+    <div>{format(date, 'medium')}</div>
+  </div>
+  {!!link && (
+    <a
+      href={link}
+      class="mt-1! text-sm text-white/80! border border-white/24 rounded-sm flex flex-row gap-1.5 py-1.5 px-2 self-end hover:text-primary! hover:border-primary transition-colors duration-300 ease-in-out"
+    >
+      {social === 'x' && (
+        <TwitterLogo width={12} />
+      )}
+      View more
+    </a>
+  )}
+</div>
