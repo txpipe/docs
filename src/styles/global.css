@@ -137,3 +137,8 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
 }
+
+
+body {
+  position: relative;
+}
