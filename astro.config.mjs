@@ -45,6 +45,7 @@ export default defineConfig({
         PageFrame: './src/components/overrides/PageFrame.astro',
         ContentPanel: './src/components/overrides/ContentPanel.astro',
         MobileMenuFooter: './src/components/overrides/MobileMenuFooter.astro',
+        Footer: './src/components/overrides/Footer.astro',
       },
       expressiveCode: {
         themes: ['starlight-dark'],
@@ -62,5 +63,9 @@ export default defineConfig({
     rehypePlugins: [
       [rehypeMermaid, { strategy: 'img-svg', dark: true }],
     ],
+  },
+
+  experimental: {
+    svg: true,
   },
 });

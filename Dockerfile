@@ -22,18 +22,11 @@ COPY . .
 RUN pnpm build
 
 # Runtime stage
-FROM node:22-alpine AS runtime
-
-WORKDIR /app
-
-# Install a simple static file server
-RUN npm install -g serve
+FROM nginx:alpine AS runtime
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Copy the built files from builder stage
-COPY --from=builder /app/dist /app
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port 3000
-EXPOSE 3000
-
-# Start the server (serving static files)
-CMD ["serve", ".", "-l", "3000"] 
+# Expose port 80
+EXPOSE 80
