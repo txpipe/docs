@@ -12,3 +12,7 @@
 	path = submodules/balius
 	url = https://github.com/txpipe/balius
 	branch = feat/global-docs
+[submodule "submodules/tx3"]
+	path = submodules/tx3
+	url = https://github.com/txpipe/tx3
+	branch = main

@@ -1,8 +1,10 @@
 // @ts-check
+import fs from 'fs';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import rehypeMermaid from 'rehype-mermaid';
+import starlightAutoSidebar from 'starlight-auto-sidebar';
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,6 +12,7 @@ export default defineConfig({
   trailingSlash: 'never',
   integrations: [
     starlight({
+      plugins: [starlightAutoSidebar()],
       customCss: [
         '@fontsource-variable/inter',
         '@fontsource-variable/roboto-mono',
@@ -26,15 +29,19 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Balius',
-          autogenerate: { directory: '/balius/', collapsed: true },
+          autogenerate: { directory: 'balius', collapsed: true },
         },
         {
           label: 'Boros',
-          autogenerate: { directory: '/boros/', collapsed: true },
+          autogenerate: { directory: 'boros', collapsed: true },
         },
         {
           label: 'Dolos',
-          autogenerate: { directory: '/dolos/', collapsed: true },
+          autogenerate: { directory: 'dolos', collapsed: true },
+        },
+        {
+          label: 'Tx3',
+          autogenerate: { directory: 'tx3', collapsed: true },
         },
       ],
       components: {
@@ -50,6 +57,11 @@ export default defineConfig({
       expressiveCode: {
         themes: ['starlight-dark'],
         useStarlightDarkModeSwitch: false,
+        shiki: {
+          langs: [
+            JSON.parse(fs.readFileSync('./langs/tx3.tmLanguage.json', 'utf-8')),
+          ],
+        },
       },
       routeMiddleware: './src/routeData.ts',
     }),
