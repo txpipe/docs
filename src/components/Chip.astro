@@ -1,4 +1,6 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
 type Props = {
   value: string;
   link?: string;
@@ -21,11 +23,17 @@ switch (color) {
   default:
     _hoverLink = 'hover:text-primary! hover:border-primary';
 }
+
+const linkProps: HTMLAttributes<'a'> = {
+  href: link,
+  target: link?.startsWith('http') ? '_blank' : undefined,
+  rel: link?.startsWith('http') ? 'noopener noreferrer' : undefined,
+};
 ---
 
 {link
   ? (
-    <a href={link} class:list={[_baseClass, _hoverLink]}>
+    <a class={_baseClass} class:list={[_hoverLink]} {...linkProps}>
       {value}
     </a>
   )

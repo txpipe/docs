@@ -5,16 +5,17 @@ import Chip from '@components/Chip.astro';
 import CardInsights, { type Props as Insight } from '@/components/CardInsights.astro';
 
 const tools = [
-  { name: 'Pallas' },
-  { name: 'Oura' },
-  { name: 'Scrolls' },
-  { name: 'Dolos', link: '/dolos/quickstart' },
-  { name: 'Mumak' },
-  { name: 'Balius', link: '/balius/introduction' },
+  { name: 'Pallas', link: 'https://github.com/txpipe/pallas' },
+  { name: 'Oura', link: 'https://oura.txpipe.io' }, // TODO: Replace by in site docs
+  { name: 'Scrolls', link: 'https://github.com/txpipe/scrolls' },
+  { name: 'Dolos', link: '/dolos' },
+  { name: 'Mumak', link: 'https://github.com/txpipe/mumak' },
+  { name: 'Balius', link: '/balius' },
   { name: 'Boros', link: '/boros' },
-  { name: 'CShell' },
-  { name: 'Telchar' },
-  { name: 'Griffin' },
+  { name: 'CShell', link: 'https://github.com/txpipe/cshell' },
+  { name: 'Telchar', link: 'https://telchar.sh' },
+  { name: 'Griffin', link: 'https://github.com/txpipe/griffin' },
+  { name: 'Tx3', link: 'https://github.com/txpipe/tx3' }, // TODO: Replace by in site docs
 ];
 
 const tasks = [
