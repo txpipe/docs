@@ -120,6 +120,10 @@ For this, we will modify `astro.config.mjs` file and add the new docs to the sid
 - **label**: how this will appear on the dropdown menu on sidebar
 - **autogenerate**: the folder that will be used to generate the sidebar. This directory is relative to the `src/content/docs` directory
 
+### Add metadata to the docs
+You can modify the label and other properties for a folder on the sidebar by using a _meta.yml file on the folder.
+For more information, check the [Starlight auto sidebar](https://starlight-auto-sidebar.netlify.app/) plugin.
+
 ---
 
 ### Example adding `balius` documentation:
