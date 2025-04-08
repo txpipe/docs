@@ -1,6 +1,9 @@
 ---
 import { format } from '@formkit/tempo';
+
+// Icons
 import TwitterLogo from '@assets/icons/twitter.svg';
+import YoutubeLogo from '@assets/icons/youtube.svg';
 
 export type Props = {
   title: string;
@@ -9,7 +12,7 @@ export type Props = {
   authorLink?: string;
   date: Date;
   link?: string;
-  social: 'x';
+  social: 'x' | 'youtube';
 };
 
 const { title, description, author, authorLink, date, link, social } = Astro.props as Props;
@@ -18,7 +21,7 @@ const { title, description, author, authorLink, date, link, social } = Astro.pro
 
 <div class="flex flex-col gap-3 px-4 py-5 border border-[#3E3E3E] rounded-md bg-gradient-to-b from-[#FFFFFF]/5 to-[#4B4B4B]/5">
   <h3 class="text-base! font-semibold! text-white/80!">{title}</h3>
-  <p class="text-sm!  text-white/80!">{description}</p>
+  <p class="text-sm! text-white/80! h-full">{description}</p>
   <div class="text-sm!">
     <div>By
       {authorLink
@@ -34,10 +37,13 @@ const { title, description, author, authorLink, date, link, social } = Astro.pro
   {!!link && (
     <a
       href={link}
-      class="mt-1! text-sm text-white/80! border border-white/24 rounded-sm flex flex-row gap-1.5 py-1.5 px-2 self-end hover:text-primary! hover:border-primary transition-colors duration-300 ease-in-out"
+      class="mt-1! text-sm text-white/80! border border-white/24 rounded-sm flex flex-row items-center gap-1.5 py-1.5 px-2 self-end hover:text-primary! hover:border-primary transition-colors duration-300 ease-in-out"
     >
       {social === 'x' && (
         <TwitterLogo width={12} />
+      )}
+      {social === 'youtube' && (
+        <YoutubeLogo width={18} />
       )}
       View more
     </a>

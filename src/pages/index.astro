@@ -30,39 +30,39 @@ const tasks = [
 
 const insights: Insight[] = [
   {
-    title: 'Lorem ipsum',
+    title: 'Substrate node executing Plutus',
     description: 'Probably the first of a kind... a Substrate node executing a Plutus script to validate an UTxO transaction.',
     author: '@santicarmuega',
     authorLink: 'https://x.com/santicarmuega',
-    date: new Date('2024-08-17'),
-    link: '#',
+    date: new Date('2025-03-28'),
+    link: 'https://x.com/santicarmuega/status/1905680639237693656',
     social: 'x',
   },
   {
-    title: 'Lorem ipsum',
-    description: 'Probably the first of a kind... a Substrate node executing a Plutus script to validate an UTxO transaction.',
-    author: '@santicarmuega',
-    authorLink: 'https://x.com/santicarmuega',
-    date: new Date('2024-08-17'),
-    link: '#',
+    title: "We've released Dolos v0.20",
+    description: 'A lightweight node for dApp backends. Talks Ouroboros, gRPC & HTTP. Developed in Rust 🦀',
+    author: '@txpipe_tools',
+    authorLink: 'https://x.com/txpipe_tools',
+    date: new Date('2025-04-02'),
+    link: 'https://x.com/txpipe_tools/status/1907420964964491288',
     social: 'x',
   },
   {
-    title: 'Lorem ipsum',
-    description: 'Probably the first of a kind... a Substrate node executing a Plutus script to validate an UTxO transaction.',
-    author: '@santicarmuega',
-    authorLink: 'https://x.com/santicarmuega',
-    date: new Date('2024-08-17'),
-    link: '#',
-    social: 'x',
+    title: 'A Headless dApp Framework',
+    description: ' Catalyst Demo on how to start building headless Cardano dApps. Scaffold and test a Balius project via CLI.',
+    author: '@mduthey',
+    authorLink: 'https://x.com/mduthey',
+    date: new Date('2025-03-13'),
+    link: 'https://youtu.be/yJOaF7r0eyg',
+    social: 'youtube',
   },
   {
-    title: 'Lorem ipsum',
-    description: 'Probably the first of a kind... a Substrate node executing a Plutus script to validate an UTxO transaction.',
+    title: 'From zero to Dolos on Mainnet',
+    description: 'From zero to a running Dolos instance on #Cardano mainnet ⚡️',
     author: '@santicarmuega',
     authorLink: 'https://x.com/santicarmuega',
-    date: new Date('2024-08-17'),
-    link: '#',
+    date: new Date('2024-10-17'),
+    link: 'https://x.com/santicarmuega/status/1847066612312035360',
     social: 'x',
   },
 ];
@@ -78,14 +78,14 @@ const insights: Insight[] = [
     pagefind: false,
   }}
 >
-  <div class="w-full px-6 min-[1488px]:px-0 not-content">
+  <div class="w-full lg:px-6 min-[1488px]:px-0 not-content">
     <h1 class="text-2xl! font-semibold! text-white!">Welcome to TxPipe Docs</h1>
-    <p class="mt-4! text-white/80">Lorem ipsum dolor sit amet consectetur. Vulputate tincidunt quam nec at ullamcorper sem consectetur.</p>
+    <p class="mt-4! text-white/80">Explore our tools, guides, examples, and more.</p>
 
     <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-8!">
-      <div class="bg-primary/3 border border-[#1A1919] p-6 rounded-md aspect-[648/276] lg:bg-[url(/assets/bg-by-tool.png)] bg-position-[center_70%] bg-cover">
+      <div class="bg-primary/3 border border-[#1A1919] p-6 rounded-md xl:min-h-69 bg-[url(/assets/bg-by-tool-lines.png)] xl:bg-[url(/assets/bg-by-tool.png)] bg-center bg-cover">
         <h2 class="text-3xl! font-semibold! text-white/90!">By Tool</h2>
-        <p class="text-sm mt-2! text-[#F1E9D9]/80! max-w-114.5">Lorem ipsum dolor sit amet consectetur. Viverra ipsum donec viverra.</p>
+        <p class="text-sm mt-2! text-[#F1E9D9]/80! max-w-114.5">From quickstarts to deep dives, on the tools you choose to build your project.</p>
         <div class="mt-6! flex flex-row gap-4 flex-wrap max-w-114.5">
           {tools.map(tool => (
             <Chip value={tool.name} link={tool.link} color="primary" />
@@ -93,9 +93,9 @@ const insights: Insight[] = [
         </div>
       </div>
 
-      <div class="bg-secondary/3 border border-[#1A1919] p-6 rounded-md lg:aspect-[648/276] lg:bg-[url(/assets/bg-by-task.png)] bg-center bg-cover">
+      <div class="bg-secondary/3 border border-[#1A1919] p-6 rounded-md xl:min-h-69 bg-[url(/assets/bg-by-task-lines.png)] xl:bg-[url(/assets/bg-by-task.png)] bg-center bg-cover">
         <h2 class="text-3xl! font-semibold! text-white/90!">By Task</h2>
-        <p class="text-sm mt-2! text-[#F1E9D9]/80! max-w-114.5">Lorem ipsum dolor sit amet consectetur. Viverra ipsum donec viverra.</p>
+        <p class="text-sm mt-2! text-[#F1E9D9]/80! max-w-114.5">Find the right tool for the job and start building right away.</p>
         <div class="mt-6! flex flex-row gap-4 flex-wrap max-w-114.5">
           {tasks.map(task => (
             <Chip value={task.name} link={task.link} color="secondary" />
@@ -107,16 +107,16 @@ const insights: Insight[] = [
     <div class="relative z-1 mt-6! p-6 rounded-sm flex flex-col md:flex-row items-center justify-center gap-6 border border-[#1A1919] bg-linear-to-r from-[#A9A9A9]/5 from-1% to-[#303030]/5 to-97% before:bg-[url(/assets/bg-banner.png)] before:bg-cover before:absolute before:w-full before:h-full before:-z-1 before:pointer-events-none">
       <div>
         <h2 class="text-white/90! text-2xl! font-semibold!">Not sure where to start?</h2>
-        <p class="mt-3! text-[#F1E9D9]/80">Browse our full documentation and find the information you need, whether by tool or task.</p>
+        <p class="mt-3! text-[#F1E9D9]/80">Explore the full docs and navigate the tools with ease.</p>
       </div>
-      <a href="/" class="relative z-1 btn-gradient py-4 px-6 rounded-full text-base font-semibold text-white bg-linear-to-r from-white/15 from-[-58%] to-[#FF46AC]/15 to-100%">
-        Explore the docs now!
+      <a href="/" class="relative z-1 btn-gradient w-full lg:w-fit py-4 px-6 rounded-full text-base text-center font-semibold text-white bg-linear-to-r from-white/15 from-[-58%] to-[#FF46AC]/15 to-100%">
+        Explore the docs!
       </a>
     </div>
 
     <div class="mt-16!">
-      <h2 class="text-lg! font-normal! text-white! border-b border-white/20 pb-1.5 w-fit">Stay in the Loop with Our Latest Insights</h2>
-      <p class="mt-4! text-[#FFFFFF]/80">Lorem ipsum dolor sit amet consectetur. Viverra ipsum donec viverra.</p>
+      <h2 class="text-lg! font-normal! text-white! border-b border-white/20 pb-1.5 w-fit">Or check out the latest resources.</h2>
+      <p class="mt-4! text-[#FFFFFF]/80">Discover tips, demos and updates from the team.</p>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8!">
         {insights.map(insight => (
           <CardInsights
