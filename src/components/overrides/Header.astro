@@ -3,8 +3,11 @@ import config from 'virtual:starlight/user-config';
 
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 
+import HeaderSupport from '@components/HeaderSupport.astro';
+
 import Search from './Search.astro';
 import SiteTitle from './SiteTitle.astro';
+
 
 /**
  * Render the `Search` component if Pagefind is enabled or the default search component has been overridden.
@@ -19,8 +22,9 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
   <div class="sl-flex print:hidden search-box">
     {shouldRenderSearch && <Search />}
   </div>
-  <div class="sl-hidden md:sl-flex print:hidden right-group">
-    <div class="sl-flex social-icons">
+  <div class="sl-flex print:hidden right-group">
+    <HeaderSupport />
+    <div class="sl-hidden md:sl-flex social-icons">
       <SocialIcons />
     </div>
   </div>

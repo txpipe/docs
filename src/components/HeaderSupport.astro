@@ -1,0 +1,161 @@
+---
+import DiscordIcon from '@assets/icons/discord.svg';
+import GithubIcon from '@assets/icons/github.svg';
+import TwitterIcon from '@assets/icons/twitter.svg';
+import EnvelopeIcon from '@assets/icons/envelope.svg';
+---
+<astro-header-support>
+  <button id="btn-support" class="text-white hover:text-primary cursor-pointer">
+    Support
+  </button>
+  <div
+    id="dropdown-support"
+    class="absolute hidden bg-[#0C0505] border border-[#3E3E3E] shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)] rounded-md overflow-hidden min-w-3xs text-left"
+  >
+    <a
+      href="https://discord.gg/eVc6HJrYmP"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex flex-row items-center px-4 py-3 gap-3 bg-white/5 text-white hover:bg-primary/12"
+    >
+      <DiscordIcon />
+      <div class="flex flex-col gap-2">
+        <div class="text-sm">Discord</div>
+        <div class="text-xs">Join Our Discord Community</div>
+      </div>
+    </a>
+    <a
+      href="https://x.com/txpipe_tools"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex flex-row items-center px-4 py-3 gap-3 bg-[#0C0505] text-[#A0A0A0] hover:bg-primary/12"
+    >
+      <TwitterIcon />
+      <div class="flex flex-col gap-2">
+        <div class="text-sm">X</div>
+        <div class="text-xs">Follow Us on X</div>
+      </div>
+    </a>
+    <a
+      href="https://github.com/txpipe"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex flex-row items-center px-4 py-3 gap-3 bg-white/5 text-white hover:bg-primary/12"
+    >
+      <GithubIcon />
+      <div class="flex flex-col gap-2">
+        <div class="text-sm">Github</div>
+        <div class="text-xs">Explore Our Code on GitHub</div>
+      </div>
+    </a>
+    <a
+      href="mailto:hello@txpipe.io"
+      class="flex flex-row items-center px-4 py-3 gap-3 bg-[#0C0505] text-[#A0A0A0] hover:bg-primary/12"
+    >
+      <EnvelopeIcon />
+      <div class="flex flex-col gap-2">
+        <div class="text-sm">Email</div>
+        <div class="text-xs">Send an Email to Support</div>
+      </div>
+    </a>
+  </div>
+</astro-header-support>  
+
+<script>
+  import { computePosition, flip, offset, shift } from '@floating-ui/dom';
+
+  class AstroHeaderSupport extends HTMLElement {
+    connectedCallback() {
+      const button = this.querySelector<HTMLButtonElement>('#btn-support');
+      const dropdown = this.querySelector<HTMLElement>('#dropdown-support');
+      const anchorElements = this.querySelectorAll('a');
+      
+      // Track if mouse is over dropdown
+      let isOverDropdown = false;
+      let isOverButton = false;
+
+      function update() {
+        if (button && dropdown) {
+          computePosition(button, dropdown, {
+            placement: 'bottom-end',
+            middleware: [flip(), shift({ padding: 10 }), offset(10)],
+          }).then(({ x, y }) => {
+            Object.assign(dropdown.style, {
+              left: `${x}px`,
+              top: `${y}px`,
+            });
+          });
+        }
+      }
+
+      function showOptions() {
+          dropdown?.classList.remove('hidden');
+          button?.classList.remove('text-white');
+          button?.classList.add('text-primary');
+          update();
+      }
+
+      function hideOptions() {
+          // Only hide if mouse is not over either element
+          if (!isOverButton && !isOverDropdown) {
+            dropdown?.classList.add('hidden');
+            button?.classList.add('text-white');
+            button?.classList.remove('text-primary');
+          }
+      }
+
+      // Button event handlers
+      if (button) {
+        button.addEventListener('mouseenter', () => {
+          isOverButton = true;
+          showOptions();
+        });
+        
+        button.addEventListener('mouseleave', () => {
+          isOverButton = false;
+          setTimeout(hideOptions, 100); // Small delay to allow mouse to enter dropdown
+        });
+        
+        button.addEventListener('focus', showOptions);
+        button.addEventListener('blur', hideOptions);
+      }
+
+      // Dropdown event handlers
+      if (dropdown) {
+        dropdown.addEventListener('mouseenter', () => {
+          isOverDropdown = true;
+        });
+        
+        dropdown.addEventListener('mouseleave', () => {
+          isOverDropdown = false;
+          hideOptions();
+        });
+      }
+
+      anchorElements?.forEach(anchor => {
+        anchor.addEventListener('click', function (event) {
+          isOverDropdown = false;
+          isOverButton = false;
+          hideOptions();
+          if (this.href.startsWith('mailto:')) {
+            event.preventDefault();
+            const email = this.href.replace('mailto:', '');
+            navigator.clipboard.writeText(email)
+              .then(() => {
+                if (window.toast) {
+                  window.toast.success('Email copied', 'The email address was successfully copied to your clipboard.');
+                }
+              })
+              .catch(err => {
+                if (window.toast) {
+                  window.toast.error('Copy failed', 'Could not copy email address to clipboard.');
+                }
+              });
+          }
+        });
+      });
+    }
+  }
+
+  customElements.define('astro-header-support', AstroHeaderSupport);
+</script>
