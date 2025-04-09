@@ -1,6 +1,8 @@
 ---
 import MobileMenuToggle from '@astrojs/starlight/components/MobileMenuToggle.astro';
 
+import Toast from '@components/Toast.astro';
+
 const { hasSidebar } = Astro.locals.starlightRoute;
 ---
 
@@ -26,6 +28,8 @@ const { hasSidebar } = Astro.locals.starlightRoute;
     <div class="main-frame w-full"><slot /></div>
   </div>
 </div>
+
+<Toast />
 
 <style>
   .page {
