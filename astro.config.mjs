@@ -40,6 +40,14 @@ export default defineConfig({
           autogenerate: { directory: 'dolos', collapsed: true },
         },
         {
+          label: 'Oura/v1',
+          autogenerate: { directory: 'oura/v1', collapsed: true },
+        },
+        {
+          label: 'Oura/v2',
+          autogenerate: { directory: 'oura/v2', collapsed: true },
+        },
+        {
           label: 'Tx3',
           autogenerate: { directory: 'tx3', collapsed: true },
         },
