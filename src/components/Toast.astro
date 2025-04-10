@@ -1,14 +1,14 @@
 ---
 ---
 
-<div id="toast-container" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex flex-col-reverse gap-2 items-center"></div>
+<div id="toast-container" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex flex-col-reverse gap-2 items-center" />
 
 <script>
   import CircleCheck from '@assets/icons/circle-check.svg?raw';
   import CircleX from '@assets/icons/circle-x.svg?raw';
 
   type ToastTheme = 'success' | 'error';
-  
+
   interface ToastOptions {
     theme: ToastTheme;
     title?: string;
@@ -45,13 +45,13 @@
 
     createToastElement(options: ToastOptions): HTMLElement {
       const { theme, title, body } = options;
-      
+
       // Create the toast element
       const toastEl = document.createElement('div');
-      toastEl.className = `flex flex-row items-center gap-4 px-4 py-3 rounded-lg bg-[#191919]/75 ${themeClasses[theme].container} transition-all duration-300 transform translate-y-full opacity-0 w-full max-w-md before:absolute before:w-full before:h-1.25 before:left-0 before:bottom-0 before:blur-[1px] overflow-hidden`;
+      toastEl.className = `flex flex-row items-center gap-4 px-4 py-3 rounded-lg bg-[#191919]/95 ${themeClasses[theme].container} transition-all duration-300 transform translate-y-full opacity-0 w-full max-w-md before:absolute before:w-full before:h-1.25 before:left-0 before:bottom-0 before:blur-[1px] overflow-hidden`;
       toastEl.setAttribute('role', 'alert');
       toastEl.id = this.id;
-      
+
       // Create the content
       let innerHTML = `
         <div class="rounded-full p-1 ${themeClasses[theme].icon}">
@@ -62,7 +62,7 @@
           ${body ? `<div class="text-sm ${themeClasses[theme].body}">${body}</div>` : ''}
         </div>
       `;
-      
+
       toastEl.innerHTML = innerHTML;
       return toastEl;
     }
@@ -71,9 +71,9 @@
       // Add to DOM
       const container = document.getElementById('toast-container');
       if (!container) return;
-      
+
       container.appendChild(this.element);
-      
+
       // Trigger animation (we need a small delay to ensure the transition works)
       setTimeout(() => {
         this.element.classList.remove('translate-y-full', 'opacity-0');
@@ -86,19 +86,19 @@
           this.hide();
         }, duration);
       }
-      
+
       return this;
     }
 
     hide() {
       this.element.classList.remove('translate-y-0', 'opacity-100');
       this.element.classList.add('translate-y-full', 'opacity-0');
-      
+
       // Remove from DOM after animation completes
       setTimeout(() => {
         this.element.remove();
       }, 300); // Match the duration in the CSS transition
-      
+
       if (this.dismissTimeout) {
         clearTimeout(this.dismissTimeout);
         this.dismissTimeout = null;
@@ -110,34 +110,34 @@
   class ToastManager {
     static instance: ToastManager;
     toasts: Map<string, Toast> = new Map();
-    
+
     constructor() {
       if (ToastManager.instance) {
         return ToastManager.instance;
       }
       ToastManager.instance = this;
     }
-    
+
     create(options: ToastOptions): Toast {
       const toast = new Toast(options);
       this.toasts.set(toast.id, toast);
       return toast;
     }
-    
+
     show(options: ToastOptions): Toast {
       const toast = this.create(options);
       toast.show(options.duration);
       return toast;
     }
-    
+
     success(title: string, body?: string, duration = 3000): Toast {
       return this.show({ theme: 'success', title, body, duration });
     }
-    
+
     error(title: string, body?: string, duration = 3000): Toast {
       return this.show({ theme: 'error', title, body, duration });
     }
-    
+
     hideAll() {
       this.toasts.forEach(toast => toast.hide());
     }
@@ -145,7 +145,7 @@
 
   // Initialize the ToastManager when the component is loaded
   const toastManager = new ToastManager();
-  
+
   // Make toast functions available globally
   document.addEventListener('DOMContentLoaded', () => {
     window.toast = {

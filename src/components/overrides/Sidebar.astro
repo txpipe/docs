@@ -28,7 +28,8 @@ sidebar.forEach(item => {
   if (item.type === 'group') {
     const isCurrent = entry.id.startsWith(item.label.toLowerCase());
     sidebarOptions.push({
-      label: item.label,
+      // Support versions like Oura/v1 Oura/v2 should be Oura v1 and Oura v2
+      label: item.label.replace('/', ' '),
       href: firstLinkEntry(item.entries[0]) || `/${item.label.toLowerCase()}`,
       badge: item.badge,
       isCurrent,

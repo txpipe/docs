@@ -59,7 +59,7 @@ import EnvelopeIcon from '@assets/icons/envelope.svg';
       </div>
     </a>
   </div>
-</astro-header-support>  
+</astro-header-support>
 
 <script>
   import { computePosition, flip, offset, shift } from '@floating-ui/dom';
@@ -69,7 +69,7 @@ import EnvelopeIcon from '@assets/icons/envelope.svg';
       const button = this.querySelector<HTMLButtonElement>('#btn-support');
       const dropdown = this.querySelector<HTMLElement>('#dropdown-support');
       const anchorElements = this.querySelectorAll('a');
-      
+
       // Track if mouse is over dropdown
       let isOverDropdown = false;
       let isOverButton = false;
@@ -110,12 +110,12 @@ import EnvelopeIcon from '@assets/icons/envelope.svg';
           isOverButton = true;
           showOptions();
         });
-        
+
         button.addEventListener('mouseleave', () => {
           isOverButton = false;
           setTimeout(hideOptions, 100); // Small delay to allow mouse to enter dropdown
         });
-        
+
         button.addEventListener('focus', showOptions);
         button.addEventListener('blur', hideOptions);
       }
@@ -125,7 +125,7 @@ import EnvelopeIcon from '@assets/icons/envelope.svg';
         dropdown.addEventListener('mouseenter', () => {
           isOverDropdown = true;
         });
-        
+
         dropdown.addEventListener('mouseleave', () => {
           isOverDropdown = false;
           hideOptions();
