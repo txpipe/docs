@@ -26,35 +26,65 @@ const currentOption = options.find(option => option.isCurrent);
     {currentOption?.label}
     <Icon name="down-caret" class="caret transition-transform ease-in-out duration-200" size="2rem" />
   </button>
-  <div class="relative hidden">
-    <div class="absolute bg-white rounded-lg p-4 text-black/90 flex flex-col gap-2 w-full !mt-4 z-10">
-      {options.map(option => (
-        <a
-          href={option.href}
-          class:list={[
-            'w-full px-2 py-2 rounded-md hover:bg-primary/10',
-            { 'text-primary font-semibold': option.isCurrent },
-          ]}
-        >
-          {option.label}
-        </a>
-      ))}
-    </div>
+  <div id="menu-dropdown" class="fixed hidden bg-white rounded-lg p-4 text-black/90 flex flex-col gap-2 w-full z-10 overflow-auto">
+    {options.map(option => (
+      <a
+        href={option.href}
+        class:list={[
+          'w-full px-2 py-2 rounded-md hover:bg-primary/10',
+          { 'text-primary font-semibold': option.isCurrent },
+        ]}
+      >
+        {option.label}
+      </a>
+    ))}
   </div>
-
 </astro-menu-dropdown>
 
 <script>
+  import { computePosition, autoUpdate, offset, size } from '@floating-ui/dom';
   class AstroMenuDropdown extends HTMLElement {
     connectedCallback() {
       const button = this.querySelector('button');
       const buttonSVG = this.querySelector('button svg');
-      const list = this.querySelector('div.hidden');
+      const list = this.querySelector<HTMLDivElement>('div#menu-dropdown');
 
-      button?.addEventListener('click', () => {
+      if (button && list) {
+        autoUpdate(button, list, update);
+      }
+
+      function update() {
+        if (button && list) {
+          computePosition(button, list, {
+            placement: 'bottom',
+            strategy: 'fixed',
+            middleware: [
+              offset(16),
+              size({
+                apply({availableHeight, elements}) {
+                  // Change styles, e.g.
+                  Object.assign(elements.floating.style, {
+                    maxWidth: `${Math.max(0, button.clientWidth)}px`,
+                    maxHeight: `${Math.max(0, availableHeight-16)}px`,
+                  });
+                },
+              })
+            ],
+          }).then(({ x, y }) => {
+            Object.assign(list.style, {
+              left: `${x}px`,
+              top: `${y}px`,
+            });
+          });
+        }
+      }
+
+      function toggleOptions() {
         list?.classList.toggle('hidden');
         buttonSVG?.classList.toggle('rotate-180');
-      });
+      }
+
+      button?.addEventListener('click', toggleOptions);
 
       window.addEventListener('click', (event) => {
         if (!this.contains(event.target as Node) && !list?.classList.contains('hidden')) {
