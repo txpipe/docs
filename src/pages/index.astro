@@ -20,14 +20,10 @@ const tools = [
 ];
 
 const tasks = [
-  { name: 'Task 1' },
-  { name: 'Task 2' },
-  { name: 'Task 3' },
-  { name: 'Task 4', link: '/' },
-  { name: 'Task 5' },
-  { name: 'Task 6' },
-  { name: 'Task 7' },
-  { name: 'Task 8' },
+  { name: 'Cardano Data Pipelines', link: '/oura/v2' },
+  { name: 'Build a Headless dApp', link: '/balius/tools/cargo-plugin' },
+  { name: 'Create Transaction Templates', link: '/tx3/language-guide/templates' },
+  { name: 'Submit Transactions', link: '/boros' },
 ];
 
 const insights: Insight[] = [
@@ -103,7 +99,11 @@ const insights: Insight[] = [
         <p class="text-sm mt-2! text-[#F1E9D9]/80! max-w-114.5">Find the right tool for the job and start building right away.</p>
         <div class="mt-6! flex flex-row gap-4 flex-wrap max-w-114.5">
           {tasks.map(task => (
-            <Chip value={task.name} link={task.link} color="secondary" />
+            <Chip
+              value={task.name}
+              link={task.link}
+              color="secondary"
+            />
           ))}
         </div>
       </div>
