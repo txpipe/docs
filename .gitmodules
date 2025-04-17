@@ -14,7 +14,7 @@
 	branch = feat/global-docs
 [submodule "submodules/tx3"]
 	path = submodules/tx3
-	url = https://github.com/txpipe/tx3
+	url = https://github.com/tx3-lang/docs
 	branch = main
 [submodule "submodules/oura"]
 	path = submodules/oura
