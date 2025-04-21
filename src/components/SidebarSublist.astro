@@ -1,5 +1,4 @@
 ---
-import SidebarRestorePoint from '@astrojs/starlight/components/SidebarRestorePoint.astro';
 import { flattenSidebar } from '@astrojs/starlight/utils/navigation';
 import { Icon, Badge } from '@astrojs/starlight/components';
 
@@ -15,50 +14,55 @@ const { sublist, nested } = Astro.props;
 
 <ul class:list={['text-white/70', { 'top-level': !nested }]}>
   {
-    sublist.map(entry => (
-      <li>
-        {entry.type === 'link'
-          ? (
-            <a
-              href={entry.href}
-              aria-current={entry.isCurrent && 'page'}
-              aria-label={entry.label}
-              class:list={['hover:text-primary py-1 block', entry.attrs.class]}
-              {...entry.attrs}
-            >
-              <span>{entry.label}</span>
-              {entry.badge && (
-                <Badge
-                  variant={entry.badge.variant}
-                  class={entry.badge.class}
-                  text={entry.badge.text}
-                />
-              )}
-            </a>
-          )
-          : (
-            <details
-              open={flattenSidebar(entry.entries).some((i: any) => i.isCurrent) || !entry.collapsed}
-            >
-              <SidebarRestorePoint />
-              <summary class="flex items-center justify-between cursor-pointer px-3 py-2">
-                <div class="group-label text-white">
-                  <span>{entry.label}</span>
-                  {entry.badge && (
-                    <Badge
-                      variant={entry.badge.variant}
-                      class={entry.badge.class}
-                      text={entry.badge.text}
-                    />
-                  )}
-                </div>
-                <Icon name="right-caret" class="caret" size="1.5rem" />
-              </summary>
-              <Astro.self sublist={entry.entries} nested />
-            </details>
-          )}
-      </li>
-    ))
+    sublist.map(entry => {
+      const isCurrentPage = entry.type === 'link'
+        ? entry.isCurrent
+        : flattenSidebar(entry.entries).some((i: any) => i.isCurrent);
+      return (
+        <li>
+          {entry.type === 'link'
+            ? (
+              <a
+                href={entry.href}
+                aria-current={isCurrentPage && 'page'}
+                aria-label={entry.label}
+                class:list={['hover:text-primary py-1 block', entry.attrs.class]}
+                {...entry.attrs}
+              >
+                <span>{entry.label}</span>
+                {entry.badge && (
+                  <Badge
+                    variant={entry.badge.variant}
+                    class={entry.badge.class}
+                    text={entry.badge.text}
+                  />
+                )}
+              </a>
+            )
+            : (
+              <details
+                open={isCurrentPage || !entry.collapsed}
+                data-current={isCurrentPage}
+              >
+                <summary class="flex items-center justify-between cursor-pointer px-3 py-2">
+                  <div class="group-label text-white">
+                    <span>{entry.label}</span>
+                    {entry.badge && (
+                      <Badge
+                        variant={entry.badge.variant}
+                        class={entry.badge.class}
+                        text={entry.badge.text}
+                      />
+                    )}
+                  </div>
+                  <Icon name="right-caret" class="caret" size="1.5rem" />
+                </summary>
+                <Astro.self sublist={entry.entries} nested />
+              </details>
+            )}
+        </li>
+      );
+    })
   }
 </ul>
 
@@ -106,3 +110,21 @@ const { sublist, nested } = Astro.props;
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const detailsElements = document.querySelectorAll('details');
+    console.log(detailsElements);
+    detailsElements.forEach((el) => {
+      el.addEventListener('toggle', () => {
+        if (el.open) {
+          detailsElements.forEach((otherEl) => {
+            if (otherEl !== el && otherEl.dataset.current !== 'true') {
+              otherEl.removeAttribute('open');
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
