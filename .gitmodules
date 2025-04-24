@@ -19,4 +19,4 @@
 [submodule "submodules/oura"]
 	path = submodules/oura
 	url = https://github.com/txpipe/oura
-	branch = docs/move-docs-to-new-pattern
+	branch = main
