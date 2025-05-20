@@ -40,6 +40,10 @@ export default defineConfig({
           autogenerate: { directory: 'dolos', collapsed: true },
         },
         {
+          label: 'Griffin',
+          autogenerate: { directory: 'griffin', collapsed: true },
+        },
+        {
           label: 'Oura/v1',
           autogenerate: { directory: 'oura/v1', collapsed: true },
         },
