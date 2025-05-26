@@ -21,10 +21,10 @@
       "include": "#strings"
     },
     {
-      "include": "#numbers"
+      "include": "#hex_strings"
     },
     {
-      "include": "#hex_strings"
+      "include": "#numbers"
     },
     {
       "include": "#operators"
@@ -52,7 +52,7 @@
       "patterns": [
         {
           "name": "keyword.control.tx3",
-          "match": "\\b(asset|party|policy|type|tx|input|output|mint|burn|cardano|bitcoin|from|to|amount|datum|redeemer|ref|datum_is|min_amount|stake_delegation_certificate|vote_delegation_certificate|drep|stake)\\b"
+          "match": "\\b(asset|party|policy|type|tx|input|output|mint|burn|reference|collateral|cardano|bitcoin|from|to|amount|datum|redeemer|ref|datum_is|min_amount|stake_delegation_certificate|vote_delegation_certificate|drep|stake)\\b"
         },
         {
           "name": "constant.language.tx3",
@@ -64,7 +64,7 @@
       "patterns": [
         {
           "name": "storage.type.tx3",
-          "match": "\\b(Int|Bool|Bytes)\\b"
+          "match": "\\b(Int|Bool|Bytes|Address|UtxoRef)\\b"
         }
       ]
     },
@@ -83,13 +83,13 @@
         }
       ]
     },
+    "hex_strings": {
+      "name": "string.hex.tx3",
+      "match": "0x[0-9a-fA-F]+"
+    },
     "numbers": {
       "name": "constant.numeric.tx3",
-      "match": "-?\\d+"
-    },
-    "hex_strings": {
-      "name": "constant.numeric.hex.tx3",
-      "match": "0x[0-9a-fA-F]+"
+      "match": "-?(?<!0x)\\d+"
     },
     "operators": {
       "patterns": [
