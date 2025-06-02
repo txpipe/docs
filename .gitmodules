@@ -6,8 +6,7 @@
 [submodule "submodules/dolos"]
 	path = submodules/dolos
 	url = https://github.com/txpipe/dolos
-	# Change to main after docs are merged
-	branch = feat/global-docs
+	branch = main
 [submodule "submodules/balius"]
 	path = submodules/balius
 	url = https://github.com/txpipe/balius
