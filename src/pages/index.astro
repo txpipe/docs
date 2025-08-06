@@ -86,14 +86,16 @@ const insights: Insight[] = [
     <h1 class="text-4xl! text-white! tracking-wider text-center">Welcome to TxPipe Docs</h1>
     <p class="mt-4! text-white/70 tracking-[0.02em] text-center">Explore our tools, guides, examples, and more.</p>
 
-    <div class="px-6 py-5 bg-[#323232]/26 mt-14! rounded-md flex flex-row gap-4 items-center">
-      <Tx3Logo class="w-[94px]" />
-      <CaretRightIcon class="size-6 text-white/80" />
-      <div class="flex-1">
-        <div class="text-white/90 text-2xl font-semibold tracking-[0.035em]">UTxO Development Toolkit</div>
-        <div class="text-white/55 mt-3.5! tracking-[0.02em]">Tx3 helps you build your UTxO dApps. Design interactions, simulate the logic, and generate production-ready code.</div>
+    <div class="px-4 sm:px-6 py-5 bg-[#323232]/26 mt-14! rounded-md flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+      <div class="flex items-center gap-4 w-full sm:w-auto">
+        <Tx3Logo class="w-[94px] flex-shrink-0" />
+        <CaretRightIcon class="size-6 text-white/80 hidden sm:block" />
       </div>
-      <a href="/tx3/quick-start" class="btn bg-gradient-to-r from-[#F41F95] from-[14.36%] to-[#B10151] to-[100%] text-white/95">
+      <div class="flex-1 min-w-0">
+        <div class="text-white/90 text-xl sm:text-2xl font-semibold tracking-[0.035em]">UTxO Development Toolkit</div>
+        <div class="text-white/55 mt-2! sm:mt-3.5! tracking-[0.02em] text-sm sm:text-base">Tx3 helps you build your UTxO dApps. Design interactions, simulate the logic, and generate production-ready code.</div>
+      </div>
+      <a href="/tx3/quick-start" class="btn bg-gradient-to-r from-[#F41F95] from-[14.36%] to-[#B10151] to-[100%] text-white/95 w-full sm:w-fit! text-center">
         Get started
       </a>
     </div>
