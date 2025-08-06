@@ -5,7 +5,7 @@ import config from 'virtual:starlight/user-config';
 const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
 ---
 
-<a href={siteTitleHref} class="site-title sl-flex text-white gap-4 items-center whitespace-nowrap ">
+<a href={siteTitleHref} class="site-title sl-flex text-white gap-3.5 items-center whitespace-nowrap">
   {
     config.logo && logos.dark && (
       <>
@@ -29,8 +29,8 @@ const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
       </>
     )
   }
-  <div class="h-2/3 w-0.75 bg-white" />
-  <span class:list={['text-[32px] leading-[1.2] font-semibold', { 'sr-only': config.logo?.replacesTitle }]} translate="no">
+  <div class="h-full w-[1px] bg-white" />
+  <span class:list={['text-2xl tracking-wider font-semibold', { 'sr-only': config.logo?.replacesTitle }]} translate="no">
     {siteTitle}
   </span>
 </a>
