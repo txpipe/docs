@@ -1,6 +1,9 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 
+import Tx3Logo from '@assets/tx3-logo.svg';
+import CaretRightIcon from '@assets/icons/caret-right.svg';
+
 import Chip from '@components/Chip.astro';
 import CardInsights, { type Props as Insight } from '@/components/CardInsights.astro';
 
@@ -28,6 +31,33 @@ const tasks = [
 
 const insights: Insight[] = [
   {
+    title: 'Welcome to Asteria! A game for devs.',
+    description: "Did you know there's a UTxO on mainnet with +10K ADA for anyone to claim? Asteria: A strategy game for devs.",
+    author: '@santicarmuega',
+    authorLink: 'https://x.com/santicarmuega',
+    date: new Date('2025-08-04'),
+    link: 'https://x.com/santicarmuega/status/1952566450083815886',
+    social: 'x',
+  },
+  {
+    title: 'DevEx bridge for Cardano & Bitcoin',
+    description: 'Many are exploring ways to bridge assets & data. Our focus is on a developer bridge - a shared developer experience.',
+    author: '@txpipe_tools',
+    authorLink: 'https://x.com/txpipe_tools',
+    date: new Date('2025-05-27'),
+    link: 'https://x.com/txpipe_tools/status/1927373449577542131',
+    social: 'x',
+  },
+  {
+    title: 'Tx3: A UTxO Development Toolkit',
+    description: 'Cardano and eUTxO have a reputation of being hard. TxPipe mission is to change this.',
+    author: '@txpipe_tools',
+    authorLink: 'https://x.com/txpipe_tools',
+    date: new Date('2025-04-23'),
+    link: 'https://x.com/txpipe_tools/status/1915006564597219601',
+    social: 'x',
+  },
+  {
     title: 'Substrate node executing Plutus',
     description: 'Probably the first of a kind... a Substrate node executing a Plutus script to validate an UTxO transaction.',
     author: '@santicarmuega',
@@ -36,38 +66,11 @@ const insights: Insight[] = [
     link: 'https://x.com/santicarmuega/status/1905680639237693656',
     social: 'x',
   },
-  {
-    title: "We've released Dolos v0.20",
-    description: 'A lightweight node for dApp backends. Talks Ouroboros, gRPC & HTTP. Developed in Rust 🦀',
-    author: '@txpipe_tools',
-    authorLink: 'https://x.com/txpipe_tools',
-    date: new Date('2025-04-02'),
-    link: 'https://x.com/txpipe_tools/status/1907420964964491288',
-    social: 'x',
-  },
-  {
-    title: 'A Headless dApp Framework',
-    description: ' Catalyst Demo on how to start building headless Cardano dApps. Scaffold and test a Balius project via CLI.',
-    author: '@mduthey',
-    authorLink: 'https://x.com/mduthey',
-    date: new Date('2025-03-13'),
-    link: 'https://youtu.be/yJOaF7r0eyg',
-    social: 'youtube',
-  },
-  {
-    title: 'From zero to Dolos on Mainnet',
-    description: 'From zero to a running Dolos instance on #Cardano mainnet ⚡️',
-    author: '@santicarmuega',
-    authorLink: 'https://x.com/santicarmuega',
-    date: new Date('2024-10-17'),
-    link: 'https://x.com/santicarmuega/status/1847066612312035360',
-    social: 'x',
-  },
 ];
 ---
 
 <!-- backgrounds -->
-<div class="absolute bg-gradients" />
+<div class="bg-gradients" />
 
 <StarlightPage
   frontmatter={{
@@ -80,24 +83,40 @@ const insights: Insight[] = [
   }}
 >
   <div class="w-full lg:px-6 min-[1488px]:px-0 not-content">
-    <h1 class="text-2xl! font-semibold! text-white!">Welcome to TxPipe Docs</h1>
-    <p class="mt-4! text-white/80">Explore our tools, guides, examples, and more.</p>
+    <h1 class="text-4xl! text-white! tracking-wider text-center">Welcome to TxPipe Docs</h1>
+    <p class="mt-4! text-white/70 tracking-[0.02em] text-center">Explore our tools, guides, examples, and more.</p>
 
-    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-8!">
-      <div class="bg-primary/3 border border-[#1A1919] p-6 rounded-md xl:min-h-69 bg-[url(/assets/bg-by-tool-lines.png)] xl:bg-[url(/assets/bg-by-tool.png)] bg-center bg-cover">
-        <h2 class="text-3xl! font-semibold! text-white/90!">By Tool</h2>
-        <p class="text-sm mt-2! text-[#F1E9D9]/80! max-w-114.5">From quickstarts to deep dives, on the tools you choose to build your project.</p>
-        <div class="mt-6! flex flex-row gap-4 flex-wrap max-w-114.5">
+    <div class="px-6 py-5 bg-[#323232]/26 mt-14! rounded-md flex flex-row gap-4 items-center">
+      <Tx3Logo class="w-[94px]" />
+      <CaretRightIcon class="size-6 text-white/80" />
+      <div class="flex-1">
+        <div class="text-white/90 text-2xl font-semibold tracking-[0.035em]">UTxO Development Toolkit</div>
+        <div class="text-white/55 mt-3.5! tracking-[0.02em]">Tx3 helps you build your UTxO dApps. Design interactions, simulate the logic, and generate production-ready code.</div>
+      </div>
+      <a href="/tx3/quick-start" class="btn bg-gradient-to-r from-[#F41F95] from-[14.36%] to-[#B10151] to-[100%] text-white/95">
+        Get started
+      </a>
+    </div>
+
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-6!">
+      <div class="px-6 pt-6 pb-8 border border-[#1A1919] rounded-md bg-gradient-to-r from-[rgba(20,20,20,0.8)] to-[rgba(23,1,14,0.8)] to-[164.93%]">
+        <div class="border-l-2 border-white/80 pl-4">
+          <h2 class="text-2xl! font-semibold! text-white/80! tracking-wider">By Tool</h2>
+          <p class="text-sm mt-2! text-white/55! tracking-[0.012em]">From quickstarts to deep dives, on the tools you choose to build your project.</p>
+        </div>
+        <div class="mt-6! flex flex-row gap-4 flex-wrap">
           {tools.map(tool => (
             <Chip value={tool.name} link={tool.link} color="primary" />
           ))}
         </div>
       </div>
 
-      <div class="bg-secondary/3 border border-[#1A1919] p-6 rounded-md xl:min-h-69 bg-[url(/assets/bg-by-task-lines.png)] xl:bg-[url(/assets/bg-by-task.png)] bg-center bg-cover">
-        <h2 class="text-3xl! font-semibold! text-white/90!">By Task</h2>
-        <p class="text-sm mt-2! text-[#F1E9D9]/80! max-w-114.5">Find the right tool for the job and start building right away.</p>
-        <div class="mt-6! flex flex-row gap-4 flex-wrap max-w-114.5">
+      <div class="px-6 pt-6 pb-8 border border-[#1A1919] rounded-md bg-gradient-to-r from-[rgba(20,20,20,0.8)] to-[rgba(1,10,23,0.8)] to-[164.93%]">
+        <div class="border-l-2 border-white/80 pl-4">
+          <h2 class="text-2xl! font-semibold! text-white/80! tracking-wider">By Task</h2>
+          <p class="text-sm mt-2! text-white/55! tracking-[0.012em]">Find the right tool for the job and start building right away.</p>
+        </div>
+        <div class="mt-6! flex flex-row gap-4 flex-wrap">
           {tasks.map(task => (
             <Chip
               value={task.name}
@@ -109,19 +128,16 @@ const insights: Insight[] = [
       </div>
     </div>
 
-    <div class="relative z-1 mt-6! p-6 rounded-sm flex flex-col md:flex-row items-center justify-center gap-6 border border-[#1A1919] bg-linear-to-r from-[#A9A9A9]/5 from-1% to-[#303030]/5 to-97% before:bg-[url(/assets/bg-banner.png)] before:bg-cover before:absolute before:w-full before:h-full before:-z-1 before:pointer-events-none">
-      <div>
-        <h2 class="text-white/90! text-2xl! font-semibold!">Not sure where to start?</h2>
-        <p class="mt-3! text-[#F1E9D9]/80">Explore the full docs and navigate the tools with ease.</p>
-      </div>
-      <a href="/balius" class="relative z-1 btn-gradient w-full lg:w-fit py-4 px-6 rounded-full text-base text-center font-semibold text-white bg-linear-to-r from-white/15 from-[-58%] to-[#FF46AC]/15 to-100%">
-        Explore the docs!
-      </a>
+    <div class="mt-8! text-sm text-white/50 text-center tracking-[0.015em] pt-10 pb-5">
+      <div class="mx-auto! w-full max-w-[500px] bg-gradient-to-r from-transparent via-white/65 to-transparent h-[1px]" />
+      <p class="mt-8!">
+        Not sure where to start? <a href="/tx3" class="underline underline-offset-2">Explore the full docs</a> and navigate the tools with ease.
+      </p>
     </div>
 
-    <div class="mt-16!">
-      <h2 class="text-lg! font-normal! text-white! border-b border-white/20 pb-1.5 w-fit">Or check out the latest resources.</h2>
-      <p class="mt-4! text-[#FFFFFF]/80">Discover tips, demos and updates from the team.</p>
+    <div class="mt-8!">
+      <h2 class="text-2xl! font-normal! text-white! tracking-wider">Or check out the latest resources</h2>
+      <p class="mt-4! text-[#FFFFFF]/70 tracking-[0.04em]">Discover tips, demos and updates from the team.</p>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8!">
         {insights.map(insight => (
           <CardInsights
@@ -153,39 +169,61 @@ const insights: Insight[] = [
 
   /* Gradient Backgrounds */
   .bg-gradients {
+    position: absolute;
     width: 100%;
     height: 100%;
-    background:
-      radial-gradient(50% 50% at 50% 50%, rgba(90, 91, 237, 0.2) 0%, rgba(37, 45, 71, 0) 100%)
-      no-repeat top 267px left -189px / 719px 559px,
-      radial-gradient(50% 50% at 50% 50%, rgba(90, 91, 237, 0.2) 0%, rgba(37, 45, 71, 0) 100%)
-      no-repeat bottom -300px right -382px / 719px 559px,
-      radial-gradient(50% 50% at 50% 50%, rgba(130, 29, 182, 0.4) 0%, rgba(37, 45, 71, 0) 100%)
-      no-repeat bottom -343px right -818px / 1328px 1153px,
-      radial-gradient(50% 50% at 50% 50%, rgba(90, 90, 237, 0.2) 0%, rgba(37, 45, 71, 0) 100%)
-      no-repeat bottom -343px right -124px / 719px 624px,
-      radial-gradient(50% 50% at 50% 50%, rgba(131, 29, 182, 0.17) 0%, rgba(37, 45, 71, 0) 100%)
-      no-repeat bottom -540px right -194px / 719px 624px,
-      radial-gradient(50% 50% at 50% 50%, rgba(0, 101, 119, 0.2) 0%, rgba(37, 45, 71, 0) 100%)
-      no-repeat bottom -263px left -9px / 687px 771px,
-      radial-gradient(50% 50% at 50% 50%, rgb(130, 29, 182, 0.17) 0%, rgba(37, 45, 71, 0) 100%)
-      no-repeat bottom -454px left -109px / 687px 771px;
-    opacity: 0.5;
     z-index: -1;
+    opacity: 0.5;
+    /* Background definitions */
+    background:
+      radial-gradient(ellipse 359px 280px at center, rgba(90, 91, 237, 0.2), transparent)
+        no-repeat top 0px left -217px,
+      radial-gradient(ellipse 359px 280px at center, rgba(90, 91, 237, 0.2), transparent)
+        no-repeat right -354px top 654px,
+      radial-gradient(ellipse 360px 312px at center, rgba(90, 91, 237, 0.2), transparent)
+        no-repeat bottom -173px right -124px,
+      radial-gradient(ellipse 360px 312px at center, rgba(130, 29, 182, 0.17), transparent)
+        no-repeat bottom -370px right -194px,
+      radial-gradient(ellipse 343px 385px at center, rgba(0, 101, 119, 0.2), transparent)
+        no-repeat top -60px left -171px,
+      radial-gradient(ellipse 343px 385px at center, rgba(90, 164, 237, 0.2), transparent)
+        no-repeat top 270px right -271px,
+      radial-gradient(ellipse 343px 385px at center, rgba(130, 29, 182, 0.17), transparent)
+        no-repeat top 519px right -118px,
+      radial-gradient(ellipse 193px 217px at center, rgba(130, 29, 182, 0.17), transparent)
+        no-repeat top -30px left 50%,
+      url('/assets/bg-landing.png') no-repeat center top;
+
+    background-size:
+      719px 560px,
+      719px 560px,
+      719px 624px,
+      719px 624px,
+      687px 770px,
+      687px 770px,
+      687px 770px,
+      387px 434px,
+      1383px auto;
+
+    pointer-events: none;
   }
 
-  /* Grid overlay starting from the middle of the screen */
-  .bg-gradients::after {
+  .bg-gradients:after {
     content: "";
     position: absolute;
-    left: 61%;
-    right: 0;
-    top: 327px;
-    bottom: 0;
-    background:
-      linear-gradient(to right, #FFFFFF 1px, transparent 1px) 0 0 / 150px 150px,
-      linear-gradient(to bottom, #FFFFFF 1px, transparent 1px) 0 -1px / 150px 150px;
+    width: 443px;
+    height: 542px;
+    transform: rotate(58.18deg);
+    left: 26.74%;
+    top: 0;
+    opacity: 0.88;
+    background: radial-gradient(ellipse 193px 217px at center, rgba(130, 29, 182, 0.17), transparent)
+      no-repeat top 0px left 0px,
+      radial-gradient(ellipse 193px 217px at center, rgba(0, 101, 119, 0.2) 0%, transparent)
+      no-repeat bottom 0px right 0px;
+
+    background-size: 387px 434px, 387px 434px;
+
     pointer-events: none;
-    opacity: 0.05;
   }
 </style>
