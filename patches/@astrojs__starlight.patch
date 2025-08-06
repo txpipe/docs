@@ -1,5 +1,5 @@
 diff --git a/package.json b/package.json
-index e2cd7db7815854ef97996b9b0142181aa6138d08..b9956330f513d22fcbd614e3b597b1ae6800ad8d 100644
+index 176e6ae7cb4a9c00786542cc401ccb8486c0d16a..59da9a5d27e05a043f9db72553d8eafcde985dd4 100644
 --- a/package.json
 +++ b/package.json
 @@ -55,6 +55,10 @@
@@ -13,7 +13,7 @@ index e2cd7db7815854ef97996b9b0142181aa6138d08..b9956330f513d22fcbd614e3b597b1ae
      "./components/ContentPanel.astro": {
        "types": "./components/ContentPanel.astro.tsx",
        "import": "./components/ContentPanel.astro"
-@@ -170,7 +174,8 @@
+@@ -174,7 +178,8 @@
        "default": "./integrations/expressive-code/hast.mjs"
      },
      "./routes/*": "./routes/*",
@@ -22,4 +22,4 @@ index e2cd7db7815854ef97996b9b0142181aa6138d08..b9956330f513d22fcbd614e3b597b1ae
 +    "./utils/navigation": "./utils/navigation.ts"
    },
    "peerDependencies": {
-     "astro": "^5.1.5"
+     "astro": "^5.5.0"

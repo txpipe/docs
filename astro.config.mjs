@@ -23,9 +23,7 @@ export default defineConfig({
       logo: {
         src: './src/assets/txpipe-logo.webp',
       },
-      social: {
-        github: 'https://github.com/txpipe/docs',
-      },
+      social: [],
       sidebar: [
         {
           label: 'Balius',
@@ -87,9 +85,5 @@ export default defineConfig({
     rehypePlugins: [
       [rehypeMermaid, { strategy: 'img-svg', dark: true }],
     ],
-  },
-
-  experimental: {
-    svg: true,
   },
 });

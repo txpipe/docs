@@ -21,7 +21,7 @@ export default [
   includeIgnoreFile(gitignorePath),
   {
     files: ['**/*.{ts,tsx,js,jsx,cjs,mjs}'],
-    ignores: ['build/**/*', 'app/entry.server.tsx', 'app/entry.client.tsx', 'app/spec/**/*'],
+    ignores: ['build/**/*', 'app/entry.server.tsx', 'app/entry.client.tsx', 'app/spec/**/*', 'submodules/**/*'],
     languageOptions: {
       ecmaVersion: 2020,
       parser: parserTs,
@@ -108,7 +108,7 @@ export default [
   },
   {
     files: ['**/*.astro'],
-    ignores: ['build/**/*', 'app/entry.server.tsx', 'app/entry.client.tsx', 'app/spec/**/*'],
+    ignores: ['build/**/*', 'app/entry.server.tsx', 'app/entry.client.tsx', 'app/spec/**/*', 'submodules/**/*'],
     languageOptions: {
       ecmaVersion: 2020,
       parser: parserAstro,

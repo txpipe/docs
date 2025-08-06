@@ -1,7 +1,10 @@
 ---
 import project from 'virtual:starlight/project-context';
 import { Icon } from '@astrojs/starlight/components';
-import type { SidebarEntry } from './Dropdown.astro';
+
+import SearchIcon from '@assets/icons/search.svg';
+
+import type { SidebarEntry } from '../Dropdown.astro';
 
 const pagefindTranslations = {
   placeholder: Astro.locals.t('search.label'),
@@ -38,8 +41,8 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
 
 <site-search class={Astro.props.class} {...dataAttributes}>
   <button data-open-modal disabled aria-label={Astro.locals.t('search.label')} aria-keyshortcuts="Control+K">
-    <Icon name="magnifier" />
-    <span class="sl-hidden md:sl-block" aria-hidden="true">{Astro.locals.t('search.label')}</span>
+    <SearchIcon class="size-5 text-white/90" />
+    <span class="sl-hidden md:sl-block tracking-wide" aria-hidden="true">{Astro.locals.t('search.label')}</span>
     <kbd class="sl-hidden md:sl-flex" style="display: none;">
       <kbd>{Astro.locals.t('search.ctrlKey')}</kbd><kbd>K</kbd>
     </kbd>
@@ -57,7 +60,7 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
       </button>
       <div class="rounded-full border border-white/[0.24] p-2.5">
         {
-          import.meta.env.DEV
+          !import.meta.env.DEV
             ? (
               <div style="margin: auto; text-align: center; white-space: pre-line;" dir="ltr">
                 <p>{Astro.locals.t('search.devWarning')}</p>
@@ -66,7 +69,7 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
             : (
               <div class="search-container w-full">
                 <search class="relative flex items-center text-white/80">
-                  <Icon name="magnifier" class="absolute left-4" size="1.25rem" />
+                  <SearchIcon class="absolute left-4 text-white/90 size-4" />
                   <input
                     data-search-input
                     type="text"
@@ -301,7 +304,7 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
     background-color: transparent;
     color: var(--sl-color-gray-1);
     cursor: pointer;
-    height: 2.5rem;
+    height: 2.75rem;
     font-size: var(--sl-text-xl);
   }
 
@@ -352,15 +355,15 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
 
   @media (min-width: 50rem) {
     button[data-open-modal] {
-      border: 1px solid var(--sl-color-gray-5);
-      border-radius: 0.5rem;
-      padding-inline-start: 0.75rem;
-      padding-inline-end: 0.5rem;
-      background-color: var(--sl-color-black);
-      color: var(--sl-color-gray-2);
-      font-size: var(--sl-text-sm);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 9999px;
+      padding-inline-start: 1.125rem;
+      padding-inline-end: 1.125rem;
+      background-color: rgba(255, 255, 255, 0.02);
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1rem;
       width: 100%;
-      max-width: 22rem;
+      max-width: 500px;
     }
     button[data-open-modal]:hover {
       border-color: var(--sl-color-gray-2);
