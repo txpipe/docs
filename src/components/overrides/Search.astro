@@ -60,7 +60,7 @@ if (project.trailingSlash === 'never') dataAttributes['data-strip-trailing-slash
       </button>
       <div class="rounded-full border border-white/[0.24] p-2.5">
         {
-          !import.meta.env.DEV
+          import.meta.env.DEV
             ? (
               <div style="margin: auto; text-align: center; white-space: pre-line;" dir="ltr">
                 <p>{Astro.locals.t('search.devWarning')}</p>
