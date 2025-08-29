@@ -53,6 +53,10 @@ export default defineConfig({
           label: 'Tx3',
           autogenerate: { directory: 'tx3', collapsed: true },
         },
+        {
+          label: 'Cshell',
+          autogenerate: { directory: 'cshell', collapsed: true },
+        },
       ],
       components: {
         Sidebar: './src/components/overrides/Sidebar.astro',
