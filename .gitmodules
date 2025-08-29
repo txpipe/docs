@@ -23,3 +23,7 @@
 	path = submodules/griffin
 	url = https://github.com/txpipe/griffin
 	branch = main
+[submodule "submodules/cshell"]
+	path = submodules/cshell
+	url = https://github.com/txpipe/cshell
+	branch = 15-search-commands
