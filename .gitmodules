@@ -25,5 +25,5 @@
 	branch = main
 [submodule "submodules/cshell"]
 	path = submodules/cshell
-	url = https://github.com/txpipe/cshell
-	branch = 15-search-commands
+	url = https://github.com/mduthey/cshell
+	branch = feat/transaction-builder
