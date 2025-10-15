@@ -50,6 +50,14 @@ export default defineConfig({
           autogenerate: { directory: 'oura/v2', collapsed: true },
         },
         {
+          label: 'Oura/v3',
+          badge: {
+            text: 'Preview',
+            variant: 'note',
+          },
+          autogenerate: { directory: 'oura/v3', collapsed: true },
+        },
+        {
           label: 'Tx3',
           autogenerate: { directory: 'tx3', collapsed: true },
         },
