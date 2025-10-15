@@ -18,7 +18,7 @@
 [submodule "submodules/oura"]
 	path = submodules/oura
 	url = https://github.com/txpipe/oura
-	branch = main
+	branch = v3
 [submodule "submodules/griffin"]
 	path = submodules/griffin
 	url = https://github.com/txpipe/griffin

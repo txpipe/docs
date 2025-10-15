@@ -1,5 +1,5 @@
 ---
-import { Icon } from '@astrojs/starlight/components';
+import { Badge, Icon } from '@astrojs/starlight/components';
 export type SidebarEntry = typeof Astro.locals.starlightRoute.sidebar[0];
 
 export interface DropdownOption {
@@ -23,7 +23,16 @@ const currentOption = options.find(option => option.isCurrent);
     type="button"
     class="cursor-pointer bg-white/5 px-4 py-3 rounded-lg text-white w-full text-left !text-2xl flex items-center justify-between"
   >
-    {currentOption?.label}
+    <div class="flex items-center gap-2">
+      {currentOption?.label}
+      {currentOption?.badge && (
+        <Badge
+          variant={currentOption.badge.variant}
+          class={currentOption.badge.class}
+          text={currentOption.badge.text}
+        />
+      )}
+    </div>
     <Icon name="down-caret" class="caret transition-transform ease-in-out duration-200" size="2rem" />
   </button>
   <div id="menu-dropdown" class="fixed hidden bg-white rounded-lg p-4 text-black/90 flex flex-col gap-2 w-full z-10 overflow-auto">
@@ -31,11 +40,18 @@ const currentOption = options.find(option => option.isCurrent);
       <a
         href={option.href}
         class:list={[
-          'w-full px-2 py-2 rounded-md hover:bg-primary/10',
+          'w-full px-2 py-2 rounded-md hover:bg-primary/10 flex items-center gap-2',
           { 'text-primary font-semibold': option.isCurrent },
         ]}
       >
         {option.label}
+        {option.badge && (
+          <Badge
+            variant={option.badge.variant}
+            class={option.badge.class}
+            text={option.badge.text}
+          />
+        )}
       </a>
     ))}
   </div>

@@ -114,7 +114,6 @@ const { sublist, nested } = Astro.props;
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const detailsElements = document.querySelectorAll('details');
-    console.log(detailsElements);
     detailsElements.forEach((el) => {
       el.addEventListener('toggle', () => {
         if (el.open) {
