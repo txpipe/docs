@@ -89,6 +89,13 @@ export default defineConfig({
     }),
   ],
 
+  redirects: {
+    '/tx3/install': {
+      destination: '/tx3/installation',
+      status: 301,
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },
