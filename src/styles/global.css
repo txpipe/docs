@@ -148,3 +148,8 @@ div.sidebar-pane ul.top-level li > a[aria-current='page'] {
 body {
   position: relative;
 }
+
+figure > pre {
+  white-space: break-spaces;
+  word-break: break-word;
+}
