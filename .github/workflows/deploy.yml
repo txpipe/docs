@@ -13,8 +13,30 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  check-secrets:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    outputs:
+      has-secrets: ${{ steps.check.outputs.has-secrets }}
+    steps:
+      - id: check
+        run: |
+          if [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ] || \
+             [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ] || \
+             [ -z "${{ secrets.AWS_ROLE_TO_ASSUME }}" ] || \
+             [ -z "${{ secrets.AWS_ROLE_SESSION_NAME }}" ] || \
+             [ -z "${{ secrets.AWS_EKS_CLUSTER_NAME }}" ] || \
+             [ -z "${{ secrets.AWS_EKS_DEPLOYMENT_NAME }}" ] || \
+             [ -z "${{ secrets.AWS_EKS_NAMESPACE }}" ]; then
+            echo "has-secrets=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::One or more required secrets are missing. Skipping deploy."
+          else
+            echo "has-secrets=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy:
+    needs: check-secrets
+    if: ${{ needs.check-secrets.outputs.has-secrets == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
