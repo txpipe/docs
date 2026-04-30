@@ -38,6 +38,10 @@ export default defineConfig({
           autogenerate: { directory: 'dolos', collapsed: true },
         },
         {
+          label: 'Metis',
+          autogenerate: { directory: 'metis', collapsed: true },
+        },
+        {
           label: 'Griffin',
           autogenerate: { directory: 'griffin', collapsed: true },
         },

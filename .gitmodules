@@ -27,3 +27,7 @@
 	path = submodules/cshell
 	url = https://github.com/txpipe/cshell
 	branch = main
+[submodule "submodules/metis"]
+	path = submodules/metis
+	url = https://github.com/txpipe/metis.git
+	branch = main
