@@ -29,5 +29,5 @@
 	branch = main
 [submodule "submodules/metis"]
 	path = submodules/metis
-	url = git@github.com:txpipe/metis.git
+	url = https://github.com/txpipe/metis.git
 	branch = main

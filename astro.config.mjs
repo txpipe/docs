@@ -38,7 +38,7 @@ export default defineConfig({
           autogenerate: { directory: 'dolos', collapsed: true },
         },
         {
-          label: 'Supernode',
+          label: 'Metis',
           autogenerate: { directory: 'metis', collapsed: true },
         },
         {
