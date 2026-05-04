@@ -31,7 +31,7 @@ jobs:
       CLUSTER_NAME: m2-prod-7xjh33
       NAMESPACE: prj-txpipe-773981
       FRONTEND_NAME: aromatic-relation-1sduph
-      ROLE_ARN: arn:aws:iam::295114534192:role/docs-deployer
+      ROLE_ARN: ${{ vars.ROLE_ARN }}
 
     steps:
       - name: Checkout
@@ -39,12 +39,15 @@ jobs:
 
       - name: Resolve image tag
         id: image
+        env:
+          MANUAL_IMAGE_TAG: ${{ inputs.image_tag }}
+          WORKFLOW_HEAD_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         shell: bash
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.image_tag }}" ]; then
-            echo "tag=${{ inputs.image_tag }}" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] && [ -n "$MANUAL_IMAGE_TAG" ]; then
+            echo "tag=$MANUAL_IMAGE_TAG" >> "$GITHUB_OUTPUT"
           else
-            echo "tag=${{ github.event.workflow_run.head_sha || github.sha }}" >> "$GITHUB_OUTPUT"
+            echo "tag=$WORKFLOW_HEAD_SHA" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Configure AWS credentials
@@ -62,9 +65,11 @@ jobs:
         run: aws eks update-kubeconfig --name "$CLUSTER_NAME" --region "$AWS_REGION"
 
       - name: Patch frontend image
+        env:
+          IMAGE_OUTPUT_TAG: ${{ steps.image.outputs.tag }}
         shell: bash
         run: |
           kubectl patch frontend "$FRONTEND_NAME" \
             -n "$NAMESPACE" \
             --type merge \
-            -p "{\"spec\":{\"image\":\"ghcr.io/txpipe/docs:${{ steps.image.outputs.tag }}\"}}"
+            -p "{\"spec\":{\"image\":\"ghcr.io/txpipe/docs:$IMAGE_OUTPUT_TAG\"}}"
