@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AWS_REGION: us-west-2
-      CLUSTER_NAME: m2-prod-7xjh33
-      NAMESPACE: prj-txpipe-773981
-      FRONTEND_NAME: aromatic-relation-1sduph
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      CLUSTER_NAME: ${{ vars.CLUSTER_NAME }}
+      NAMESPACE: ${{ vars.NAMESPACE }}
+      FRONTEND_NAME: ${{ vars.FRONTEND_NAME }}
       ROLE_ARN: ${{ vars.ROLE_ARN }}
 
     steps:
