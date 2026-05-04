@@ -1,0 +1,75 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Image tag to deploy
+        required: false
+        type: string
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main'
+      )
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      CLUSTER_NAME: ${{ vars.CLUSTER_NAME }}
+      NAMESPACE: ${{ vars.NAMESPACE }}
+      FRONTEND_NAME: ${{ vars.FRONTEND_NAME }}
+      ROLE_ARN: ${{ vars.ROLE_ARN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve image tag
+        id: image
+        env:
+          MANUAL_IMAGE_TAG: ${{ inputs.image_tag }}
+          WORKFLOW_HEAD_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        shell: bash
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] && [ -n "$MANUAL_IMAGE_TAG" ]; then
+            echo "tag=$MANUAL_IMAGE_TAG" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=$WORKFLOW_HEAD_SHA" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: github-actions-docs-deploy
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Configure kubeconfig
+        shell: bash
+        run: aws eks update-kubeconfig --name "$CLUSTER_NAME" --region "$AWS_REGION"
+
+      - name: Patch frontend image
+        env:
+          IMAGE_OUTPUT_TAG: ${{ steps.image.outputs.tag }}
+        shell: bash
+        run: |
+          kubectl patch frontend "$FRONTEND_NAME" \
+            -n "$NAMESPACE" \
+            --type merge \
+            -p "{\"spec\":{\"image\":\"ghcr.io/txpipe/docs:$IMAGE_OUTPUT_TAG\"}}"
