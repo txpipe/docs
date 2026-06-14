@@ -15,10 +15,6 @@
 	path = submodules/tx3
 	url = https://github.com/tx3-lang/docs
 	branch = main
-[submodule "submodules/oura"]
-	path = submodules/oura
-	url = https://github.com/txpipe/oura
-	branch = v3
 [submodule "submodules/griffin"]
 	path = submodules/griffin
 	url = https://github.com/txpipe/griffin
@@ -31,3 +27,15 @@
 	path = submodules/metis
 	url = https://github.com/txpipe/metis.git
 	branch = main
+[submodule "oura-v1"]
+	path = submodules/oura-v1
+	url = https://github.com/txpipe/oura
+	branch = main
+[submodule "oura-v2"]
+	path = submodules/oura-v2
+	url = https://github.com/txpipe/oura
+	branch = main
+[submodule "oura-v3"]
+	path = submodules/oura-v3
+	url = https://github.com/txpipe/oura
+	branch = v3
